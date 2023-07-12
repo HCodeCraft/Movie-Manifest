@@ -5,11 +5,10 @@ class CreateMovies < ActiveRecord::Migration[6.1]
       t.string :image_url
       t.string :genres
       t.string :description
-      t.string :review
-      t.boolean :watched
-      t.integer :rating
       t.integer :runtime
-
+      t.string :link
+      t.integer :list_id
+      t.integer :review_id
       t.timestamps
     end
   end
