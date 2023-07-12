@@ -1,10 +1,16 @@
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import NavBar from "./NavBar";
 
 function App() {
   return (
-   <div>
-    <h1>Movie Manifest!!!</h1>
-   </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </>
   );
 }
 
