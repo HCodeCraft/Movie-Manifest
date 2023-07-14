@@ -20,7 +20,7 @@ function App() {
         <Route path="/movies/:id" element={<Movie />} />
         <Route path="/movies/new" element={<NewMovie/>} />
         <Route path="/users/new" element={<Signup/>} />
-        <Route path="/users/:id/movies" element={<UserMovies/>} />
+        <Route path="/users/movies" element={<UserMovies/>} />
       </Routes>
       </UserProvider>
     </>
