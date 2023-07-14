@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
-    belongs_to :list
-    belongs_to :review
+    has_many :reviews
+    has_many :users, through: :reviews
 end

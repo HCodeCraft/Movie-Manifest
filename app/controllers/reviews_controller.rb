@@ -17,8 +17,8 @@ class ReviewsController < ApplicationController
 
     private
 
-    def movie_list_params
-        params.require(:movie_list).permit(:title, :image_url, :description, :genres)
+    def review_params
+        params.require(:review).permit(:review, :watched, :rating)
     end
 
 

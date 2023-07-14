@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Router } from "react-router-dom";
 import Home from "./Home";
 import NavBar from "./NavBar";
 
@@ -9,6 +9,8 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        {/* <Route path="/users/new" element={<NewUserForm/>} /> */}
+        {/* <Route path="/lists/new" element={NewListForm} /> */}
       </Routes>
     </>
   );
