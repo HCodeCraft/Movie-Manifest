@@ -8,7 +8,11 @@ function Home() {
     // I want it to say Welcome <User>! 
   return (
     <div>
-      <h2>Login: </h2>
+        <h2>Welcome to Movie Manifest!</h2>
+        <h3>Where you can add, review and rate your favorite movies!</h3>
+           <h3> Never forget a movie again!</h3>
+
+      <h2>Please Login: </h2>
         <form>
             <label>Username:</label>
             <input name="username" type="text" ></input>
@@ -16,6 +20,7 @@ function Home() {
             <input name="username" type="text" ></input>
             <input type="submit" />
         </form>
+        <h3>Or:</h3>
         <button onClick={() => navigate(`users/new`)}>Create an Account</button>
     </div>
   )
