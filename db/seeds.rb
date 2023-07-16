@@ -16,15 +16,19 @@
 #     description: "Documentaries I want to watch and review",
 #     image_url: "https://cdni.rt.com/files/2015.12/article/5661d7dac3618841498b45d4.png",
 #     user_id: 2}])
+
 # User.create!([{
+#     username: "Lem",
+#     password: "Lem"
+
+# }])
+
 #     username: "Hanna",
 #     password_digest: "Beans"
 # },
 # {
 #     username: "Linda",
 #     password_digest: "Bananas"
-# }])
-
 # Movie.create!([
 #     {
 #       title: "May",

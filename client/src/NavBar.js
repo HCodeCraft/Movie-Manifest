@@ -1,20 +1,26 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/user";
 
 const NavBar = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout, loggedIn } = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const logoutUser = () => {
-    fetch('/logout')
+    fetch('/logout', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json'}
+    })
     .then(() => {
       logout()
+      navigate('/')
     })
   }
 
   // I need to import the user id in here for linking to
   // "My Movies/Reviews" and to display the User's username
-  if (user) {
+  if (loggedIn) {
     return (
       <div>
         <NavLink to={"/"}>Home</NavLink>{" "}

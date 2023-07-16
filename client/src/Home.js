@@ -1,54 +1,83 @@
-import React, { useContext, useState } from 'react'
-import { useNavigate, NavLink } from "react-router-dom"
-import { UserContext } from './context/user'
+import React, { useContext, useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import { UserContext } from "./context/user";
 
 function Home() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const { user, login } = useContext(UserContext)
-    const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { user, login, loggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-      e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        login(user);
+     setUsername(user.username)
+      })
+    .catch((error) => {
+      setError("An error occurred during login. Please try again.");
+      console.error("Error:", error);
+    });
+  };
 
-    }
 
-    // I want the Login form to dissapear if user is logged in, and
-    // I want it to say Welcome <User>! 
-    if (!user || user.error) {
-      return (
-        <div>
-            <h2>Welcome to Movie Manifest!</h2>
-            <h3>Where you can add, review and rate your favorite movies!</h3>
-               <h3> Never forget a movie again!</h3>
-    
-          <h2>Please Login: </h2>
-            <form onSubmit={handleSubmit}>
-                <label>Username:</label>
-                <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} ></input>
-                <label>Password:</label>
-                <input name="username" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                <input type="submit" />
-            </form>
-            <h3>Or:</h3>
-            <button onClick={() => navigate(`users/new`)}>Create an Account</button>
-        </div>
-      )
+ 
+  if (loggedIn) {
+    return (
+      <div>
+      <h3>Welcome {username}!</h3>
+      Feel free to:
+      <NavLink to={"/movies"}>
+        <button>Browse Movies</button>
+      </NavLink>
+      Or
+      <NavLink to={"/movies/new"}>
+        <button>Add a Movie</button>
+      </NavLink>
+    </div>
+     
+    );
+  } else {
+    return (
+      <div>
+      <h2>Welcome to Movie Manifest!</h2>
+      <h3>Where you can add, review and rate your favorite movies!</h3>
+      <h3> Never forget a movie again!</h3>
 
-    }
-    else {
-      return (
-        <div>
-          <h3>Welcome {user.username}!</h3>
-          Feel free to:
-          <NavLink to={'/movies'}><button>Browse Movies</button></NavLink>
-          Or
-          <NavLink to={'/movies/new'}><button>Add a Movie</button></NavLink>
-        </div>
-      )
-    }
+      <h2>Please Login: </h2>
+      <form onSubmit={handleSubmit}>
+        <label>Username:</label>
+        <input
+          name="username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></input>
+        <label>Password:</label>
+        <input
+          name="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <input type="submit" />
+      </form>
+      <h3>Or:</h3>
+      <button onClick={() => navigate(`users/new`)}>Create an Account</button>
+    </div>
 
+    );
+  }
 }
 
-export default Home
+export default Home;
