@@ -24,7 +24,7 @@ const NavBar = () => {
     return (
       <div>
         <NavLink to={"/"}>Home</NavLink>{" "}
-        <NavLink to={`/users/#{id}/movies`}>My Movies/Reviews</NavLink>{" "}
+        <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
         <NavLink to={"/movies"}>All Movies</NavLink>{" "}
         <NavLink to={"movies/new"}>Add a Movie</NavLink>
         <p>{user ? user.username : ""}</p>
