@@ -6,4 +6,7 @@ class Review < ApplicationRecord
    validates :rating, length: { in: 0..5}
 
 
+   def username
+     self.user.username 
+   end
 end

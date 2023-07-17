@@ -3,8 +3,8 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "./context/user";
 
 function Home() {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const { user, login, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Home() {
       .then((res) => res.json())
       .then((user) => {
         login(user);
-     setUsername(user.username)
+        setUsername(user.username)
       })
     .catch((error) => {
       setError("An error occurred during login. Please try again.");
@@ -30,12 +30,11 @@ function Home() {
     });
   };
 
-
  
   if (loggedIn) {
     return (
       <div>
-      <h3>Welcome {username}!</h3>
+      <h3>Welcome {user.username}!</h3>
       Feel free to:
       <NavLink to={"/movies"}>
         <button>Browse Movies</button>

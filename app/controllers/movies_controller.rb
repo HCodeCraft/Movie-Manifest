@@ -2,10 +2,10 @@ class MoviesController < ApplicationController
     before_action :authorize
 
 
-def index
-    movies = current_user.movies
-    render json: movies, include: :reviews
-end
+    def index
+        movies = Movie.all
+        render json: movies
+      end
 
 
 def create
@@ -16,24 +16,14 @@ def create
         render json: { errors: movie.errors.full_messages }, status: :unprocessable_entity
     end
 end
-end
 
-# Showing all movies regardless if the user added it or not
-def all_movies_index
-    movies = Movie.all
-    render json: movies, include: :reviews
-end
 
 
 def show
-    movie = Movie.includes(:reviews).find_by(id: params[:id])
+    movie = Movie.find_by(id: params[:id])
   
     if movie
-      if movie.users.include?(current_user)
-        render json: movie, include: :reviews
-      else
         render json: movie
-      end
     else
       render json: { error: "Movie not found" }, status: :not_found
     end

@@ -26,7 +26,7 @@ const NavBar = () => {
         <NavLink to={"/"}>Home</NavLink>{" "}
         <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
         <NavLink to={"/movies"}>All Movies</NavLink>{" "}
-        <NavLink to={"movies/new"}>Add a Movie</NavLink>
+        {user.admin = true ? <NavLink to={"movies/new"}>Add a Movie</NavLink> : null}
         <p>{user ? user.username : ""}</p>
         <button onClick={logoutUser}>Logout</button>
         <br />

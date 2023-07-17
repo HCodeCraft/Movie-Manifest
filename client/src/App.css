@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+ .cardimg {
+  width: 150px;
+  height: 250px;
+}
