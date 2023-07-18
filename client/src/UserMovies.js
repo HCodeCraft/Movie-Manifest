@@ -9,10 +9,6 @@ const UserMovies = () => {
 
   const navigate = useNavigate();
 
-  console.log("movies", movies);
-  console.log("user", user);
-  console.log("user.reviews", user.reviews);
-  console.log("user.movies", user.movies);
 
   const movieList = user.movies
     ? user.movies.map((movie) => (
@@ -54,7 +50,7 @@ const UserMovies = () => {
             <h2>Looks like your list is empty! </h2>
             <br />
             <h2>Feel free to add some movies: </h2>
-            <Link><button>Add movie</button></Link>
+            <Link to={'/movies/new'}><button>Add movie</button></Link>
           </>
         )}
       </div>

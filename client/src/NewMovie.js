@@ -1,21 +1,32 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from "react";
 import { UserContext } from "./context/user";
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom";
+import StarRating from "./StarRating";
 
 const NewMovie = () => {
-
-  // When a new movie is created I want to have a checkbox that says 
+  // When a new movie is created I want to have a checkbox that says
   // Unwatched ? Add movie to your list with an empty review
   // maybe have a dropdown to create a review for it at the same time?
 
-    const [movie, setMovie] = useState({
+  const [movie, setMovie] = useState({
     title: "",
     image_url: "",
     genres: "",
     description: "",
     runtime: 0,
-    link: ""
+    link: "",
   });
+
+  const [review, setReview] = useState({
+    review: "",
+    watched: false,
+    rating: null
+  });
+
+  const [watched, setWatched] = useState(false);
+
+  // If watched is false I want this page to generate a blank review for the user
+  // If it is watched I want a dropdown to appear that has them fill out the review info
 
   const navigate = useNavigate();
 
@@ -26,15 +37,20 @@ const NewMovie = () => {
     });
   };
 
+  console.log("watched", watched);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const newCategory = {
-    //   name: category.name,
-    //   image: category.image,
-    //   description: category.description,
-    // };
+    const newMovie = {
+      title: movie.title,
+      image_url: movie.image_url,
+      genres: movie.genres,
+      description: movie.description,
+      runtime: movie.runtime,
+      link: movie.link,
+    };
 
-    // fetch("http://localhost:9292/categories", {
+    // fetch("/movies", {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -48,8 +64,13 @@ const NewMovie = () => {
     //   });
   };
 
+  const changeRating = (num) => {
+    setReview({ ...review, rating: num });
+  };
+  
+
   return (
-    <div >
+    <div>
       <br />
       <div>
         <h1>Add a Movie</h1>
@@ -59,29 +80,55 @@ const NewMovie = () => {
       <br />
       <br />
       <form onSubmit={handleSubmit}>
-        <label>Movie Title:</label>
+        <label>Movie Title: </label>
         <input name="title" onChange={handleChange} type="text" /> <br />
         <br />
-        <label>Image url:</label>
+        <label>Image url: </label>
         <input name="image_url" onChange={handleChange} type="text" /> <br />
         <br />
-        <label>Genres:</label>
+        <label>Genres: </label>
         <input name="genres" onChange={handleChange} type="text" /> <br />
         <br />
-        <label>Description:</label>
-        <input name="description" onChange={handleChange} type="text" /> <br />
+        <label>Description: </label>
+        <textarea
+          rows={5}
+          cols={20}
+          name="description"
+          onChange={handleChange}
+          type="text"
+        />{" "}
+        <br />
         <br />
         {/* Change to textbox ^ */}
-        <label>Runtime (in minutes):</label>
+        <label>Runtime (in minutes): </label>
         <input name="runtime" onChange={handleChange} type="text" /> <br />
         <br />
-        <label>Link:</label>
+        <label>Link: </label>
         <input name="link" onChange={handleChange} type="text" /> <br />
         <br />
+        <label>Watched: </label>
+        <input
+          name="link"
+          onChange={handleChange}
+          type="checkbox"
+          onClick={() => setWatched(!watched)}
+        />{" "}
+        <br />
+        <br />
+        {watched === true ? (
+          <>
+            <h2>Add your Review: </h2>
+            <label>Review: </label>
+            <input name="review" onChange={handleChange} type="text" /> <br />
+            <br />
+            <label>Rating: </label>
+            <StarRating rating={review.rating} changeRating={changeRating}/>
+          </>
+        ) : null}
         <input type="submit" />
       </form>
     </div>
   );
 };
 
-export default NewMovie
+export default NewMovie;

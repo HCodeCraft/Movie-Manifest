@@ -8,15 +8,14 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const logoutUser = () => {
-    fetch('/logout', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json'}
-    })
-    .then(() => {
-      logout()
-      navigate('/')
-    })
-  }
+    fetch("/logout", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }).then(() => {
+      logout();
+      navigate("/");
+    });
+  };
 
   // I need to import the user id in here for linking to
   // "My Movies/Reviews" and to display the User's username
@@ -26,7 +25,7 @@ const NavBar = () => {
         <NavLink to={"/"}>Home</NavLink>{" "}
         <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
         <NavLink to={"/movies"}>All Movies</NavLink>{" "}
-        {user.admin = true ? <NavLink to={"movies/new"}>Add a Movie</NavLink> : null}
+        <NavLink to={"movies/new"}>Add a Movie</NavLink>
         <p>{user ? user.username : ""}</p>
         <button onClick={logoutUser}>Logout</button>
         <br />

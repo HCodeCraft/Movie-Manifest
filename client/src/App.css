@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -40,4 +43,13 @@
  .cardimg {
   width: 150px;
   height: 250px;
+}
+
+input[type="radio"]{
+  display: none;
+}
+
+.star {
+  cursor:pointer;
+  transition: color 200ms;
 }
