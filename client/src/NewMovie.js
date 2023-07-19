@@ -20,7 +20,7 @@ const NewMovie = () => {
   const [review, setReview] = useState({
     review: "",
     watched: false,
-    rating: null
+    rating: null,
   });
 
   const [watched, setWatched] = useState(false);
@@ -34,6 +34,14 @@ const NewMovie = () => {
     setMovie({
       ...movie,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleReviewChange = (e) => {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setReview({
+      ...review,
+      [e.target.name]: value,
     });
   };
 
@@ -67,68 +75,81 @@ const NewMovie = () => {
   const changeRating = (num) => {
     setReview({ ...review, rating: num });
   };
-  
 
   return (
     <div>
       <br />
       <div className="top_banner">
-       <h1>Add a Movie</h1>
-     
-      <br />
-      <img className="newimg" src="https://i.pinimg.com/736x/76/5c/1b/765c1b4b1ef541278400a4564d437983--movies-at-nostalgia.jpg" />
-      <br />
-      <br />
-     
-      <form onSubmit={handleSubmit}>
-        <label>Movie Title: </label>
-        <input name="title" onChange={handleChange} type="text" /> <br />
+        <h1>Add a Movie</h1>
+
         <br />
-        <label>Image url: </label>
-        <input name="image_url" onChange={handleChange} type="text" /> <br />
-        <br />
-        <label>Genres: </label>
-        <input name="genres" onChange={handleChange} type="text" /> <br />
-        <br />
-        <label>Description: </label>
-        <textarea
-          rows={5}
-          cols={20}
-          name="description"
-          onChange={handleChange}
-          type="text"
-        />{" "}
+        <img
+          className="newimg"
+          src="https://i.pinimg.com/736x/76/5c/1b/765c1b4b1ef541278400a4564d437983--movies-at-nostalgia.jpg"
+        />
         <br />
         <br />
-        {/* Change to textbox ^ */}
-        <label>Runtime (in minutes): </label>
-        <input name="runtime" onChange={handleChange} type="text" /> <br />
-        <br />
-        <label>Link: </label>
-        <input name="link" onChange={handleChange} type="text" /> <br />
-        <br />
-        <label>Watched: </label>
-        <input
-          name="link"
-          onChange={handleChange}
-          type="checkbox"
-          onClick={() => setWatched(!watched)}
-        />{" "}
-        <br />
-        <br />
-        {watched === true ? (
-          <>
-            <h2>Add your Review: </h2>
-            <label>Review: </label>
-            <input name="review" onChange={handleChange} type="text" /> <br />
-            <br />
-            <label>Rating: </label>
-            <StarRating rating={review.rating} changeRating={changeRating}/>
-          </>
-        ) : null}
-        <input type="submit" />
-      </form>
-    </div>
+
+        <form onSubmit={handleSubmit}>
+          <label>Movie Title: </label>
+          <input name="title" onChange={handleChange} type="text" /> <br />
+          <br />
+          <label>Image url: </label>
+          <input name="image_url" onChange={handleChange} type="text" /> <br />
+          <br />
+          <label>Genres: </label>
+          <input name="genres" onChange={handleChange} type="text" /> <br />
+          <br />
+          <label>Description: </label>
+          <textarea
+            rows={5}
+            cols={20}
+            name="description"
+            onChange={handleChange}
+            type="text"
+          />{" "}
+          <br />
+          <br />
+          {/* Change to textbox ^ */}
+          <label>Runtime (in minutes): </label>
+          <input name="runtime" onChange={handleChange} type="text" /> <br />
+          <br />
+          <label>Link: </label>
+          <input name="link" onChange={handleChange} type="text" /> <br />
+          <br />
+          <label>Watched: </label>
+          <input
+            name="watched"
+            onChange={handleReviewChange}
+            type="checkbox"
+            onClick={handleReviewChange}
+          />{" "}
+          <br />
+          <br />
+          {review.watched === true ? (
+            <>
+              <h2>Add your Review: </h2>
+              <br />
+              <label>Review: </label>
+              <textarea
+              rows={5}
+              cols={20}
+              name="review"
+              onChange={handleReviewChange}
+              type="text"
+            />{" "}
+              <br />
+              <br />
+              <label>Rating: </label>
+              <StarRating rating={review.rating} changeRating={changeRating} />
+            </>
+          ) : null}
+          <br />
+          <input type="submit" />
+          <br />
+          <br />
+        </form>
+      </div>
     </div>
   );
 };
