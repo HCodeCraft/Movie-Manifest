@@ -16,12 +16,13 @@ const Movies = () => {
     hours_and_min={movie.hours_and_min}
   /> </div> )
   return (
-    <>
+    <div className="top_banner">
     <div><h1>All movies</h1></div>
+    <br/>
     <div  className="container">
       {movieList}
     </div>
-    </>
+    </div>
   )
 }
 

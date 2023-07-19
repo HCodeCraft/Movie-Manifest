@@ -23,12 +23,7 @@ const UserMovies = () => {
             short_description={movie.short_description}
             hours_and_min={movie.hours_and_min}
           />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+
           <ReviewCard movie_id={movie.id} />
         </div>
       ))
@@ -43,7 +38,7 @@ const UserMovies = () => {
       </div>
       <br />
       <div>
-        {!!movieList.length ? (
+        { !!movieList.length ? (
           <div className="container"> {movieList} </div>
         ) : (
           <>
@@ -52,7 +47,7 @@ const UserMovies = () => {
             <h2>Feel free to add some movies: </h2>
             <Link to={'/movies/new'}><button>Add movie</button></Link>
           </>
-        )}
+        ) }
       </div>
     </>
   );

@@ -6,6 +6,7 @@ function UserProvider({ children}) {
     const [user, setUser] = useState({})
     const [loggedIn, setLoggedIn] = useState(false)
     const [movies, setMovies] = useState([])
+    const [username, setUsername] = useState("");
 
 
     useEffect(() => {
@@ -27,15 +28,13 @@ function UserProvider({ children}) {
         .then(res => res.json())
         .then(data => {
             setMovies(data)
-            console.log("movies", movies)
         })
-
     }
 
     const login = () => {
         setUser(user)
         setLoggedIn(true)
-        // setUsername(user.username)
+        setUsername(user.username)
     }
 
     const logout = () => {
@@ -46,6 +45,11 @@ function UserProvider({ children}) {
     const signup = (user) => {
         setUser(user)
         setLoggedIn(true)
+
+    }
+
+    const addMovie = (newMovie) => {
+
 
     }
 

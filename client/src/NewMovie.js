@@ -72,13 +72,14 @@ const NewMovie = () => {
   return (
     <div>
       <br />
-      <div>
-        <h1>Add a Movie</h1>
-      </div>
+      <div className="top_banner">
+       <h1>Add a Movie</h1>
+     
       <br />
-      <img src="https://i.pinimg.com/736x/76/5c/1b/765c1b4b1ef541278400a4564d437983--movies-at-nostalgia.jpg" />
+      <img className="newimg" src="https://i.pinimg.com/736x/76/5c/1b/765c1b4b1ef541278400a4564d437983--movies-at-nostalgia.jpg" />
       <br />
       <br />
+     
       <form onSubmit={handleSubmit}>
         <label>Movie Title: </label>
         <input name="title" onChange={handleChange} type="text" /> <br />
@@ -127,6 +128,7 @@ const NewMovie = () => {
         ) : null}
         <input type="submit" />
       </form>
+    </div>
     </div>
   );
 };
