@@ -5,6 +5,6 @@ class Movie < ApplicationRecord
     validates :title, presence: true, uniqueness: true
     validates :image_url, presence: true
     validates :genres, presence: true
-    validates :description, length: { minimum: 50 }
+    validates :description, length: { minimum: 10 }
     validates :runtime, length: { in: 1..999 }
 end

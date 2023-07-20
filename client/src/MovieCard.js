@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import ReviewCard from './ReviewCard'
-
-const MovieCard = ({ title, genres, img_url, runtime, short_description, hours_and_min}) => {
+import { Link, useLocation } from "react-router-dom";
 
 
+
+const MovieCard = ({ title, genres, img_url, runtime, short_description, hours_and_min, id}) => {
+
+    const location = useLocation();
+    const currentPath = location.pathname;
+
+    console.log("currentPath", currentPath)
 
   
 
@@ -17,7 +21,7 @@ const MovieCard = ({ title, genres, img_url, runtime, short_description, hours_a
       <h4>Runtime: {runtime} mins ({hours_and_min})</h4>
       <p>{short_description}</p>
       <br/>
-      <Link><button>Show More</button></Link>
+      <Link to={ currentPath === '/users/movies' ? `/movies/${id}` :`${id}`}><button>Show More</button></Link>
     </div>
     </>
   );

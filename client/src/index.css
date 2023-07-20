@@ -55,3 +55,12 @@ code {
   align-items: center;
 }
 
+.desdiv {
+  width: 50%
+}
+
+.desimage {
+max-width: 370px;
+max-height: 550px;
+
+}

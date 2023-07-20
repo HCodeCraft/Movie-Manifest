@@ -5,20 +5,20 @@ class ReviewsController < ApplicationController
         render json: reviews
     end
 
-    # def create
-    #     user = User.find_by(id: params[:user_id])
-    #     user.movie_lists.new(movie_list_params)
-    #     if movie_list.save
-    #         render json: movie_list
-    #     else  
-    #         render json: { errors: movie_list.errors.full_messages}, status: :unprocessable_entity
-    #     end
-    # end
+    def create
+        user = User.find_by(id: params[:user_id])
+        newreview = user.reviews.create(review_params)
+        if newreview.save
+            render json: newreview
+        else  
+            render json: { errors: newreview.errors.full_messages}, status: :unprocessable_entity
+        end
+    end
 
     private
 
     def review_params
-        params.require(:review).permit(:review, :watched, :rating)
+        params.permit(:reviewtext, :watched, :rating)
     end
 
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-    resources :reviews, only: :index
+    resources :reviews, only: [:index, :create]
     resources :movies, only: [:index, :show, :create]
     get 'movies/all', to: 'movies#all_movies_index'
 

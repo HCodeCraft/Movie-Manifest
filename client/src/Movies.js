@@ -14,8 +14,9 @@ const Movies = () => {
     runtime={movie.runtime}
     short_description={movie.short_description} 
     hours_and_min={movie.hours_and_min}
+    id={movie.id}
   /> </div> )
-  return (
+  return loggedIn ? (
     <div className="top_banner">
     <div><h1>All movies</h1></div>
     <br/>
@@ -23,7 +24,7 @@ const Movies = () => {
       {movieList}
     </div>
     </div>
-  )
+  ) : <><br/><h1>You're not authorized, please log in or create an account</h1></>
 }
 
 export default Movies

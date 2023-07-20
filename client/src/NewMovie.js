@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { useNavigate, Link } from "react-router-dom";
 import StarRating from "./StarRating";
@@ -7,6 +7,9 @@ const NewMovie = () => {
   // When a new movie is created I want to have a checkbox that says
   // Unwatched ? Add movie to your list with an empty review
   // maybe have a dropdown to create a review for it at the same time?
+
+  const { user, loggedIn, movies, addMovie, addReview } =
+    useContext(UserContext);
 
   const [movie, setMovie] = useState({
     title: "",
@@ -18,15 +21,10 @@ const NewMovie = () => {
   });
 
   const [review, setReview] = useState({
-    review: "",
+    reviewtext: "",
     watched: false,
     rating: null,
   });
-
-  const [watched, setWatched] = useState(false);
-
-  // If watched is false I want this page to generate a blank review for the user
-  // If it is watched I want a dropdown to appear that has them fill out the review info
 
   const navigate = useNavigate();
 
@@ -38,45 +36,38 @@ const NewMovie = () => {
   };
 
   const handleReviewChange = (e) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setReview({
       ...review,
       [e.target.name]: value,
     });
   };
 
-  console.log("watched", watched);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newMovie = {
+
+    addMovie({
       title: movie.title,
       image_url: movie.image_url,
       genres: movie.genres,
       description: movie.description,
       runtime: movie.runtime,
       link: movie.link,
-    };
+    });
 
-    // fetch("/movies", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newCategory),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     onAddCategory(data);
-    //     navigate("/categories");
-    //   });
+    // addReview({
+    //   reviewtext: review.reviewtext,
+    //   watched: review.watched,
+    //   rating: review.rating,
+    // });
   };
 
   const changeRating = (num) => {
     setReview({ ...review, rating: num });
   };
 
-  return (
+  return loggedIn ? (
     <div>
       <br />
       <div className="top_banner">
@@ -132,12 +123,12 @@ const NewMovie = () => {
               <br />
               <label>Review: </label>
               <textarea
-              rows={5}
-              cols={20}
-              name="review"
-              onChange={handleReviewChange}
-              type="text"
-            />{" "}
+                rows={5}
+                cols={20}
+                name="reviewtext"
+                onChange={handleReviewChange}
+                type="text"
+              />{" "}
               <br />
               <br />
               <label>Rating: </label>
@@ -151,7 +142,7 @@ const NewMovie = () => {
         </form>
       </div>
     </div>
-  );
+  ) :  <><br/><h1>You're not authorized, please log in or create an account</h1></>
 };
 
 export default NewMovie;

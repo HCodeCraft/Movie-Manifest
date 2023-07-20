@@ -30,18 +30,27 @@ function Home() {
     });
   };
 
+  useEffect(() => {
+
+    console.log("user", user)
+
+  }, [user])
 
 
  
   if (loggedIn) {
     return (
-      <div>
-      <h3>Welcome {username}!</h3>
-      Feel free to:
+      <div className="top_banner">
+      <h1>Welcome {user.username}!</h1>
+      <br/>
+     <h2>Feel free to: </h2> 
+     <br/>
       <NavLink to={"/movies"}>
         <button>Browse Movies</button>
       </NavLink>
-      Or
+      <br/>
+      <h2>Or</h2>
+      <br/>
       <NavLink to={"/movies/new"}>
         <button>Add a Movie</button>
       </NavLink>

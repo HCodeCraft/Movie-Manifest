@@ -45,9 +45,9 @@ def current_user
 end
 
 def movie_params
-    params.permit(:title, :image_url, :genres, :description, :runtime, :link)
-end
-
+    params.require(:movie).permit(:title, :image_url, :description, :runtime, :link, :genres)
+  end
+  
 def authorize
     return render json: {error: "Not authorized"}, status: :unauthorized unless session.include? :user_id
 end
