@@ -8,13 +8,12 @@ const MovieCard = ({ title, genres, img_url, runtime, short_description, hours_a
     const location = useLocation();
     const currentPath = location.pathname;
 
-    console.log("currentPath", currentPath)
 
   
 
   return (
     <>
-    <div class="card">
+    <div className="card">
       <img className="card-image" src={img_url} />
       <h2>{title}</h2>
       <h3> {genres}</h3>

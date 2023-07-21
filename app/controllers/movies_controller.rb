@@ -35,7 +35,9 @@ def update
 end
 
 def destroy
-
+    movie = Movie.find_by(id: params[:id])
+    movie.destroy
+    head :no_content
 end
 
 private

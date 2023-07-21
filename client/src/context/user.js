@@ -32,7 +32,7 @@ function UserProvider({ children }) {
 
   const login = () => {
     setUser(user);
-    console.log("user", user)
+
     setLoggedIn(true);
     setUsername(user.username);
   };
@@ -49,19 +49,17 @@ function UserProvider({ children }) {
 
   const onAddMovie = (newMovie) => {
     console.log("newMovie", newMovie);
-    // setMovies([...movies, newMovie])
+    setMovies([...movies, newMovie]);
   };
 
   const onAddReview = (newReview) => {
     console.log("newReview", newReview);
-    // const updatedReviews = [...user.reviews, newReview]
-    // const updatedUser = {...user, reviews: updatedReviews}
-    // setUser(updatedUser)
+    const updatedReviews = [...user.reviews, newReview];
+    const updatedUser = { ...user, reviews: updatedReviews };
+    setUser(updatedUser);
   };
 
   const addMovie = (newMovie) => {
-
-
     console.log("newMovie", newMovie);
 
     fetch("/movies", {
@@ -74,12 +72,13 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddMovie(data);
+        // not working ^ :(
       });
   };
 
   const addReview = (newReview) => {
-
-
+    console.log("user", user);
+    console.log("movies", movies);
     fetch("/reviews", {
       method: "POST",
       headers: {
@@ -90,11 +89,34 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddReview(data);
+        // Not working ^ :(
         // navigate("/users/movies");
       });
   };
 
-  console.log("user from context", user);
+  const editReview = () => {
+    e.preventDefault();
+    fetch(`/reviews/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newReview),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          onAddReview(data)
+   } ) }
+
+  const onDeleteMovie = (deletedMovie) => {
+    // need to update user's movies?
+    const newMovies = movies.filter((movie) => movie.id != deletedMovie.id);
+    setMovies(newMovies);
+
+    const newUserMovies = user.movies.filter((movie) => movie.id != deletedMovie.id)
+    const updatedUser = {...user, movies:newUserMovies}
+    setUser(updatedUser)
+  };
 
   return (
     <UserContext.Provider
@@ -107,6 +129,8 @@ function UserProvider({ children }) {
         movies,
         addMovie,
         addReview,
+        onDeleteMovie,
+        editReview
       }}
     >
       {children}

@@ -8,7 +8,7 @@ const ReviewCard = ({ movie_id }) => {
     (review) => review.movie_id === movie_id
   );
 
-  console.log("oneReview", oneReview);
+;
 
   return (
     <div>

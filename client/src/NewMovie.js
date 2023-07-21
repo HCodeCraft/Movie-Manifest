@@ -56,11 +56,11 @@ const NewMovie = () => {
       link: movie.link,
     });
 
-    // addReview({
-    //   reviewtext: review.reviewtext,
-    //   watched: review.watched,
-    //   rating: review.rating,
-    // });
+    addReview({
+      reviewtext: review.reviewtext,
+      watched: review.watched,
+      rating: review.rating,
+    });
   };
 
   const changeRating = (num) => {

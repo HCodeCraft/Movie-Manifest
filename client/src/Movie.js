@@ -1,12 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import StarRating from "./StarRating";
 
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, loggedIn, movies } = useContext(UserContext);
+  const { user, loggedIn, movies, onDeleteMovie, editReview } =
+    useContext(UserContext);
+
+  const [reviewForm, setReviewForm] = useState(false);
 
   const [movie, setMovie] = useState({
     title: "",
@@ -19,14 +23,42 @@ const Movie = () => {
     created_at: "",
   });
 
-  console.log("user from movie", user)
-  console.log("movies from movie", movies)
-
   const [review, setReview] = useState({
-    review: "",
+    review: ,
     watched: false,
     rating: 0,
   });
+
+  const handleReviewChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setReview({
+      ...review,
+      [e.target.name]: value,
+    });
+  };
+
+  const changeRating = (num) => {
+    setReview({ ...review, rating: num });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editReview({
+      review: review.textarea,
+      watched: true,
+      rating: review.rating,
+    });
+  };
+
+  const handleDeleteMovie = () => {
+    fetch(`/movies/${params.id}`, {
+      method: "DELETE",
+    }).then(() => {
+      onDeleteMovie(movie);
+      navigate(`/movies`);
+    });
+  };
 
   useEffect(() => {
     const selectedMovie = movies.find((m) => m.id == params.id);
@@ -41,7 +73,7 @@ const Movie = () => {
     }
   }, [movies]);
 
-  return (
+  return loggedIn ? (
     <div className="top_banner">
       <h1>{movie.title}</h1>
       <br />
@@ -56,6 +88,12 @@ const Movie = () => {
       <div className="desdiv">
         <p>{movie.description}</p>
         <br />
+        <br />
+        <button onClick={() => handleDeleteMovie(params.id)}>
+          Delete Movie
+        </button>
+        <br />
+        <br />
         <div>
           {review.watched ? (
             <>
@@ -64,18 +102,50 @@ const Movie = () => {
               {review.stars}
               <br />
               <br />
-              {review.review}
-              <br/>
+              {review.reviewtext}
               <br />
+              <br />
+            </>
+          ) : reviewForm === false ? (
+            <>
+              <h3>Unwatched</h3> <br />{" "}
+              <button onClick={() => setReviewForm(true)}>Add Review</button>
             </>
           ) : (
             <>
-              <h3>Unwatched</h3> <br /> <button>Add Review</button>
+              <form onSubmit={handleSubmit}>
+                <h2>Add your Review: </h2>
+                <br />
+                <label>Review: </label>
+                <textarea
+                  rows={5}
+                  cols={20}
+                  name="reviewtext"
+                  onChange={handleReviewChange}
+                  type="text"
+                />{" "}
+                <br />
+                <br />
+                <label>Rating: </label>
+                <StarRating
+                  rating={review.rating}
+                  changeRating={changeRating}
+                />
+                <br />
+                <input type="submit" />
+                <br />
+                <br />
+              </form>
             </>
           )}
         </div>
       </div>
     </div>
+  ) : (
+    <>
+      <br />
+      <h1>You're not authorized, please log in or create an account</h1>
+    </>
   );
 };
 
