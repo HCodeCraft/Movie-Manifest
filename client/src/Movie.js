@@ -1,13 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "./context/user";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
-import StarRating from "./StarRating";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { user, loggedIn, movies, onDeleteMovie, editReview } =
+  const { user, loggedIn, movies, onDeleteMovie, onEditReview } =
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
@@ -24,7 +22,7 @@ const Movie = () => {
   });
 
   const [review, setReview] = useState({
-    review: ,
+    reviewtext: "",
     watched: false,
     rating: 0,
   });
@@ -42,13 +40,29 @@ const Movie = () => {
     setReview({ ...review, rating: num });
   };
 
-  const handleSubmit = (e) => {
+
+
+  const handleEditSubmit = (e) => {
     e.preventDefault();
-    editReview({
-      review: review.textarea,
+    const editedReview = {
+      reviewtext: review.reviewtext,
       watched: true,
       rating: review.rating,
-    });
+    };
+
+    fetch(`/reviews/${review.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedReview),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        onEditReview(data);
+        console.log("It was edited!");
+        console.log("Here's the data", data);
+      });
   };
 
   const handleDeleteMovie = () => {
@@ -71,76 +85,91 @@ const Movie = () => {
 
       setMovie(selectedMovie);
     }
-  }, [movies]);
+  }, [movies, params.id, user.reviews]);
+
+  const handleFormClick = () => {
+    setReviewForm(true);
+  };
 
   return loggedIn ? (
-    <div className="top_banner">
-      <h1>{movie.title}</h1>
-      <br />
-      <img className="desimage" src={movie.image_url} />
-      <br />
-      <h3> {movie.genres}</h3>
-      <br />
-      <h4>
-        Runtime: {movie.runtime} mins ({movie.hours_and_min})
-      </h4>
-      <br />
-      <div className="desdiv">
-        <p>{movie.description}</p>
+    <>
+      <div className="top_banner">
+        <h1>{movie.title}</h1>
         <br />
+        <img className="desimage" src={movie.image_url} alt={movie.title} />
         <br />
-        <button onClick={() => handleDeleteMovie(params.id)}>
-          Delete Movie
-        </button>
+        <h3>{movie.genres}</h3>
         <br />
+        <h4>
+          Runtime: {movie.runtime} mins ({movie.hours_and_min})
+        </h4>
         <br />
-        <div>
-          {review.watched ? (
-            <>
-              {" "}
-              <h2>My Review</h2> <br />
-              {review.stars}
-              <br />
-              <br />
-              {review.reviewtext}
-              <br />
-              <br />
-            </>
-          ) : reviewForm === false ? (
-            <>
-              <h3>Unwatched</h3> <br />{" "}
-              <button onClick={() => setReviewForm(true)}>Add Review</button>
-            </>
-          ) : (
-            <>
-              <form onSubmit={handleSubmit}>
-                <h2>Add your Review: </h2>
+        <div className="desdiv">
+          <p>{movie.description}</p>
+          <br />
+          <br />
+          <Link to={`edit`}>
+            <button>Edit Movie</button>
+          </Link>
+
+          <button onClick={() => handleDeleteMovie(params.id)}>
+            Delete Movie
+          </button>
+          <br />
+          <br />
+          <div>
+            {review.watched && reviewForm === false ? (
+              <>
+                <h2>My Review</h2>
                 <br />
-                <label>Review: </label>
-                <textarea
-                  rows={5}
-                  cols={20}
-                  name="reviewtext"
-                  onChange={handleReviewChange}
-                  type="text"
-                />{" "}
+                {review.stars}
                 <br />
                 <br />
-                <label>Rating: </label>
-                <StarRating
-                  rating={review.rating}
-                  changeRating={changeRating}
-                />
-                <br />
-                <input type="submit" />
+                {review.reviewtext}
                 <br />
                 <br />
-              </form>
-            </>
-          )}
+                <button onClick={handleFormClick}>Edit your Review</button>
+                <br />
+                <br />
+              </>
+            ) : (
+              <>
+                <br />
+                <button onClick={handleFormClick}>Add Review</button>
+                <br />
+                <br />
+              </>
+            )}
+            {reviewForm && (
+              <>
+                <form onSubmit={handleEditSubmit}>
+                  <h2>{review.watched ? "Edit" : "Add"} your Review: </h2>
+                  <br />
+                  <label>Review: </label>
+                  <textarea
+                    rows={5}
+                    cols={20}
+                    name="reviewtext"
+                    value={review.reviewtext}
+                    onChange={handleReviewChange}
+                    type="text"
+                  />
+                  <br />
+                  <br />
+                  <label>Rating: </label>
+                  {/* Your StarRating component should go here */}
+                  {/* <StarRating rating={review.rating} changeRating={changeRating} /> */}
+                  <br />
+                  <input type="submit" />
+                  <br />
+                  <br />
+                </form>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   ) : (
     <>
       <br />

@@ -94,28 +94,42 @@ function UserProvider({ children }) {
       });
   };
 
-  const editReview = () => {
-    e.preventDefault();
-    fetch(`/reviews/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newReview),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          onAddReview(data)
-   } ) }
+  const onEditMovie= () => {
+    
+
+  }
+
+  /// need to give this fuction the id
+  const onEditReview = (editedReview) => {
+    console.log("editedReview", editedReview)
+    // need to edit the movie.reviews
+    // const oneMovie = movies.find((movie) => movie.id == editedReview.movie_id);
+    // console.log("oneMovie", oneMovie);
+    // const updatedMovieReviews = oneMovie.reviews((review) =>
+    //   review.id === editedReview.id ? editedReview : review
+    // );
+    // console.log("updatedMovieReviews", updatedMovieReviews);
+    // const updatedMovie = { ...oneMovie, reviews: updatedMovieReviews };
+    // console.log("updatedMovie", updatedMovie);
+    // const updatedMovies = movies.map((movie) =>
+    //   movie.id === updatedMovie.id ? updatedMovie : movie
+    // );
+    // console.log("updatedMovies", updatedMovies);
+    // setMovies(updatedMovies);
+    // console.log("movies after update", movies);
+    // need to edit the user.reviews
+  };
 
   const onDeleteMovie = (deletedMovie) => {
     // need to update user's movies?
     const newMovies = movies.filter((movie) => movie.id != deletedMovie.id);
     setMovies(newMovies);
 
-    const newUserMovies = user.movies.filter((movie) => movie.id != deletedMovie.id)
-    const updatedUser = {...user, movies:newUserMovies}
-    setUser(updatedUser)
+    const newUserMovies = user.movies.filter(
+      (movie) => movie.id != deletedMovie.id
+    );
+    const updatedUser = { ...user, movies: newUserMovies };
+    setUser(updatedUser);
   };
 
   return (
@@ -130,8 +144,7 @@ function UserProvider({ children }) {
         addMovie,
         addReview,
         onDeleteMovie,
-        editReview
-      }}
+        onEditReview }}
     >
       {children}
     </UserContext.Provider>

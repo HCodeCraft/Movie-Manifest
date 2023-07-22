@@ -8,6 +8,7 @@ import Movies from "./Movies"
 import UserMovies from "./UserMovies"
 import Movie from "./Movie";
 import NewMovie from "./NewMovie";
+import EditMovie from "./EditMovie"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/movies/new" element={<NewMovie/>} />
         <Route path="/users/new" element={<Signup/>} />
         <Route path="/users/movies" element={<UserMovies/>} />
+        <Route path="/movies/:id/edit" element={<EditMovie/>} />
       </Routes>
       </UserProvider>
     </>
