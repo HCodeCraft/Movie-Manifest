@@ -31,16 +31,22 @@ def show
   
 
 def update
-
+    movie = find_movie
+    movie.update(movie_params)
+    render json: movie
 end
 
 def destroy
-    movie = Movie.find_by(id: params[:id])
+    movie = find_movie
     movie.destroy
     head :no_content
 end
 
 private
+
+def find_movie
+    Movie.find_by(id: params[:id])
+end
 
 def current_user
     user = User.find_by(id: session[:user_id])

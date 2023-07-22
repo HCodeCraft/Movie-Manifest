@@ -94,8 +94,16 @@ function UserProvider({ children }) {
       });
   };
 
-  const onEditMovie= () => {
-    
+  const onEditMovie= (editedMovie) => {
+    const updatedMovies = movies.map((movie) => {
+        if (movie.id === editedMovie.id) {
+          return editedMovie;
+        } else {
+          return movie;
+        }
+      });
+      setMovies(updatedMovies);
+      // need to update user.movies too
 
   }
 
@@ -144,7 +152,8 @@ function UserProvider({ children }) {
         addMovie,
         addReview,
         onDeleteMovie,
-        onEditReview }}
+        onEditReview,
+    onEditMovie }}
     >
       {children}
     </UserContext.Provider>
