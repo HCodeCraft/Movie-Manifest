@@ -18,8 +18,9 @@ const ReviewCard = ({ movie_id }) => {
       ) : (
         <>
           {" "}
+          <br/>
           <p>{oneReview[0].stars}</p>
-          <p>-{oneReview[0].username}</p>{" "}
+          {/* <p>-{oneReview[0].username}</p>{" "} */}
         </>
       )}
     </div>

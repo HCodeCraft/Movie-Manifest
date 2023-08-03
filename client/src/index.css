@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+ 
 
 }
 
@@ -17,6 +18,20 @@ code {
   box-sizing:border-box;
   padding:0;
   margin: 0;
+}
+
+.full-screen-header {
+  background-size: cover;
+  background-position-x: 40%;
+  background-position-y: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: black;
+  position: relative;
 }
 
 
@@ -65,4 +80,71 @@ code {
 max-width: 370px;
 max-height: 550px;
 
+}
+
+.btn {
+  background-color: hsl(0, 0%, 90%);
+  border: 1px solid hsl(0, 0%, 70%);
+  outline: none;
+  cursor: pointer;
+  padding: .5em 1em;
+  border-radius: .3em;
+}
+
+.btn:hover, .btn:focus {
+  background-color: hsl(0, 0%, 80%);
+  box-shadow: 0 0 5px 0 hsl(0, 0%, 70%);
+}
+
+.btn.btn-primary {
+  background-color: hsl(271, 70%, 50%);
+  border-color: hsl(271, 70%, 30%);
+  color: white;
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:focus {
+  background-color: hsl(271, 70%, 40%);
+  box-shadow: 0 0 5px 0 hsl(271, 70%, 30%);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem;
+
+}
+
+.nav-top {
+  position:fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #333;
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-list NavLink {
+  text-decoration: none;
+  margin-left: 1rem;
+
+}
+
+.nav-list li a {
+  color: white; /* Text color */
+  padding: 5px 10px; /* Padding around the links */
+  text-decoration: none;
+  background-color:teal; /* Remove underline from links */
+}
+
+.nav-list li a:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  color: purple; /* Text color on hover */
 }

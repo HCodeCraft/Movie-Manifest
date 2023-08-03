@@ -36,7 +36,7 @@ const UserMovies = () => {
   return user ? (
     <>
       <div className="top_banner">
-        <h1>{user.username}'s Movies</h1>
+        <h1>My Movies</h1>
       </div>
       <br />
       <div>

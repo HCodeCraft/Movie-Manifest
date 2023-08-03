@@ -53,32 +53,34 @@ function UserProvider({ children }) {
   };
 
   const onAddReview = (newReview) => {
-    console.log("newReview", newReview);
-    const updatedReviews = [...user.reviews, newReview];
-    const updatedUser = { ...user, reviews: updatedReviews };
-    setUser(updatedUser);
+    if (newReview) {
+      console.log("newReview", newReview);
+      const updatedReviews = [...user.reviews, newReview];
+      const updatedUser = { ...user, reviews: updatedReviews };
+      setUser(updatedUser);
+    }
   };
+  
 
-  const addMovie = (newMovie) => {
-    console.log("newMovie", newMovie);
-
-    fetch("/movies", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMovie),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        onAddMovie(data);
-        // not working ^ :(
-      });
-  };
+    const addMovie = (newMovie) => {
+        fetch("/movies", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMovie),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            onAddMovie(data);
+            console.log("newMovie", newMovie)
+            // Optionally, navigate to a new page after successful movie creation
+            // navigate("/movies");
+          })
+      };
+      
 
   const addReview = (newReview) => {
-    console.log("user", user);
-    console.log("movies", movies);
     fetch("/reviews", {
       method: "POST",
       headers: {
@@ -91,8 +93,9 @@ function UserProvider({ children }) {
         onAddReview(data);
         // Not working ^ :(
         // navigate("/users/movies");
-      });
+      })
   };
+  
 
   const onEditMovie= (editedMovie) => {
     const updatedMovies = movies.map((movie) => {

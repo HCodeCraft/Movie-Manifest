@@ -4,9 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
 const NewMovie = () => {
-  // When a new movie is created I want to have a checkbox that says
-  // Unwatched ? Add movie to your list with an empty review
-  // maybe have a dropdown to create a review for it at the same time?
+
 
   const { user, loggedIn, movies, addMovie, addReview } =
     useContext(UserContext);
@@ -44,23 +42,29 @@ const NewMovie = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    addMovie({
+    await addMovie({
       title: movie.title,
       image_url: movie.image_url,
       genres: movie.genres,
       description: movie.description,
       runtime: movie.runtime,
-      link: movie.link,
+      link: movie.link
     });
 
-    addReview({
-      reviewtext: review.reviewtext,
-      watched: review.watched,
-      rating: review.rating,
-    });
+    if (review.watched) {
+      addReview({
+        reviewtext: review.reviewtext,
+        watched: review.watched,
+        rating: review.rating,
+        user_id: user.id,
+        movie_id: movies.length - 1,
+      });
+    }
+
+    // navigate(`/movies`)
   };
 
   const changeRating = (num) => {
@@ -103,7 +107,7 @@ const NewMovie = () => {
           <br />
           {/* Change to textbox ^ */}
           <label>Runtime (in minutes): </label>
-          <input name="runtime" onChange={handleChange} type="text" /> <br />
+          <input name="runtime" onChange={handleChange} type="number" /> <br />
           <br />
           <label>Link: </label>
           <input name="link" onChange={handleChange} type="text" /> <br />
@@ -113,11 +117,10 @@ const NewMovie = () => {
             name="watched"
             onChange={handleReviewChange}
             type="checkbox"
-            onClick={handleReviewChange}
-          />{" "}
+          ></input>
           <br />
           <br />
-          {review.watched === true ? (
+          {review.watched && (
             <>
               <h2>Add your Review: </h2>
               <br />
@@ -128,13 +131,13 @@ const NewMovie = () => {
                 name="reviewtext"
                 onChange={handleReviewChange}
                 type="text"
-              />{" "}
+              />
               <br />
               <br />
               <label>Rating: </label>
               <StarRating rating={review.rating} changeRating={changeRating} />
             </>
-          ) : null}
+          )}
           <br />
           <input type="submit" />
           <br />
@@ -142,7 +145,12 @@ const NewMovie = () => {
         </form>
       </div>
     </div>
-  ) :  <><br/><h1>You're not authorized, please log in or create an account</h1></>
+  ) : (
+    <>
+      <br />
+      <h1>You're not authorized, please log in or create an account</h1>
+    </>
+  );
 };
 
 export default NewMovie;

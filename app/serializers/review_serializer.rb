@@ -1,7 +1,7 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :reviewtext, :watched, :rating, :movie_id, :username, :stars, :id
-  belongs_to :users
-  belongs_to :movies
+  attributes :reviewtext, :watched, :rating, :movie_id, :username, :stars, :id, :user_id, :created_at
+  belongs_to :user
+  belongs_to :movie
   # has_one :user
 
   def stars
@@ -13,4 +13,13 @@ class ReviewSerializer < ActiveModel::Serializer
   end
 #   ^ Means that the review has a single associated user that will be included
 # when the Review is serialized
+
+# def create_date
+#   created_at = object.created_at
+#   date_time = DateTime.parse(created_at)
+
+# # Format the DateTime object in the desired format
+# formatted_date = date_time.strftime("%B %e, %Y, %l:%M:%S %p")
+# end
+
 end

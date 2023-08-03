@@ -21,15 +21,21 @@ const NavBar = () => {
   // "My Movies/Reviews" and to display the User's username
   if (loggedIn) {
     return (
-      <div>
-        <NavLink to={"/"}>Home</NavLink>{" "}
-        <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
-        <NavLink to={"/movies"}>All Movies</NavLink>{" "}
-        <NavLink to={"movies/new"}>Add a Movie</NavLink>
-        <p>{user ? user.username : ""}</p>
-        <button onClick={logoutUser}>Logout</button>
-        <br />
-      </div>
+      <header className="full-screen-header">
+        <nav className="nav nav-top">
+          <ul className="nav-list">
+        <li><NavLink to={"/"}>Home</NavLink>{" "}</li>
+        <li><NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}</li>
+        <li><NavLink to={"/movies"}>All Movies</NavLink>{" "}</li>
+        <li><NavLink to={"movies/new"}>Add a Movie</NavLink></li>
+       <li><h3>{user ? user.username : ""}</h3></li> 
+       <li> <button onClick={logoutUser}>Logout</button></li>
+        </ul>
+        </nav>
+        <br/>
+        <br/>
+        <br/>
+      </header>
     );
   } else {
     return (

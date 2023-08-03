@@ -20,7 +20,7 @@ const MovieCard = ({ title, genres, img_url, runtime, short_description, hours_a
       <h4>Runtime: {runtime} mins ({hours_and_min})</h4>
       <p>{short_description}</p>
       <br/>
-      <Link to={ currentPath === '/users/movies' ? `/movies/${id}` :`${id}`}><button>Show More</button></Link>
+      <Link to={ currentPath === '/users/movies' ? `/movies/${id}` :`${id}`}><button className="btn btn-primary" >Show More</button></Link>
     </div>
     </>
   );
