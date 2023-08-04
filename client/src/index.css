@@ -50,7 +50,8 @@ code {
 
 .card-image {
   background-color: aqua;
-  height: 300px;
+  max-height: 300px;
+  max-width: 300px;
   margin-bottom: 25px;
   justify-content: center;
   align-content:center;
@@ -87,8 +88,10 @@ max-height: 550px;
   border: 1px solid hsl(0, 0%, 70%);
   outline: none;
   cursor: pointer;
-  padding: .5em 1em;
+  padding: .25em .5em;
   border-radius: .3em;
+  font-size: 1.1em;
+
 }
 
 .btn:hover, .btn:focus {
@@ -147,4 +150,15 @@ max-height: 550px;
 .nav-list li a:hover {
   background-color: #f0f0f0; /* Background color on hover */
   color: purple; /* Text color on hover */
+}
+
+.btn.btn-accent {
+  background-color: hsl(200, 100%, 40%);
+  border-color: hsl(200, 100%, 20%);
+  color: white;
+}
+
+.btn.btn-accent:hover, .btn.btn-accent:focus {
+  background-color: hsl(200, 100%, 30%);
+  box-shadow: 0 0 5px 0 hsl(200, 100%, 20%);
 }

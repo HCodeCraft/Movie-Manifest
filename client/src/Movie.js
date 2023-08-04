@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import StarRating from "./StarRating";
+import BigReviewCard from "./BigReviewCard";
 
 const Movie = () => {
   const params = useParams();
@@ -10,7 +11,6 @@ const Movie = () => {
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
-  const [additionalForm, setAdditionalForm] = useState(false);
 
   const [movie, setMovie] = useState({
     title: "",
@@ -21,6 +21,7 @@ const Movie = () => {
     hours_and_min: "",
     link: "",
     created_at: "",
+    reviews: [],
   });
 
   const [review, setReview] = useState({
@@ -29,37 +30,23 @@ const Movie = () => {
     rating: 0,
   });
 
-  const [review2, setReview2] = useState({
-    reviewtext: "",
-    watched: false,
-    rating: 0,
-  });
-
-  console.log("review2", review2)
-
+  const [additionalForm, setAdditionalForm] = useState(false);
 
   const handleReviewChange = (e) => {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-    additionalForm
-      ? setReview2({
-          ...review2,
-          [e.target.name]: value,
-        })
-      : setReview({
-          ...review,
-          [e.target.name]: value,
-        });
+    setReview({
+      ...review,
+      [e.target.name]: value,
+    });
   };
 
   const changeRating = (num) => {
-    additionalForm
-      ? setReview2({ ...review2, rating: num })
-      : setReview({ ...review, rating: num });
+    setReview({ ...review, rating: num });
   };
 
-  const handleAddSubmit = (e) => {
+  const handleAddReviewSubmit = (e) => {
     e.preventDefault();
     const newReview = {
       reviewtext: review.reviewtext,
@@ -77,7 +64,12 @@ const Movie = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-      if (onAddReview ){ onAddReview(data) }
+        if (onAddReview) {
+          onAddReview(data);
+          console.log("OnAddReview Ran")
+        }
+        setReviewForm(false);
+        // I need to update movie state to add the review
         console.log("It was added!");
         console.log("Here's the data", data);
       });
@@ -130,13 +122,30 @@ const Movie = () => {
     }
   }, [movies, params.id, user.reviews]);
 
-  const handleFormClick = () => {
+  const handleFormClick = (selectedReview) => {
+    console.log(selectedReview);
     setReviewForm(true);
+    setReview(selectedReview);
+    // I want this to set the review fields to the selected review
   };
 
   const handleAdditionalFormClick = () => {
     setAdditionalForm(true);
   };
+
+  const reviewList = movie.reviews.map((review) => (
+    <BigReviewCard
+      key={review.id}
+      review={review}
+      text={review.reviewtext}
+      stars={review.stars}
+      username={review.username}
+      created_at={review.created_at}
+      id={review.id}
+      handleFormClick={handleFormClick}
+      handleAdditionalFormClick={handleAdditionalFormClick}
+    />
+  ));
 
   return loggedIn ? (
     <>
@@ -167,64 +176,16 @@ const Movie = () => {
           </button>
           <br />
           <br />
+          {reviewForm === false ? (
+            <button className="btn btn-accent" onClick={handleFormClick}>
+              Add Review
+            </button>
+          ) : null}
+
           <div>
-            {review.watched && reviewForm === false ? (
+            {!reviewForm && (
               <>
-                <h2>My Review</h2>
-                <br />
-                {review.stars}
-                <br />
-                <br />
-                {review.created_at}
-                <br />
-                <br />
-                {review.reviewtext}
-                <br />
-                <br />
-                <button onClick={handleFormClick}>Edit your Review</button>{" "}
-                <button onClick={handleAdditionalFormClick}>
-                  Add another Review
-                </button>
-                <br />
-                <br />
-                {additionalForm && (
-                  <>
-                    <form
-                      onSubmit={ handleAddSubmit }
-                    >
-                      <h2>Additional Review</h2>
-                      <br />
-                      <label>Review: </label>
-                      <textarea
-                        rows={5}
-                        cols={20}
-                        name="reviewtext"
-                        value={review2.reviewtext}
-                        onChange={handleReviewChange}
-                        type="text"
-                      />
-                      <br />
-                      <br />
-                      <label>Rating: </label>
-                      {/* Your StarRating component should go here */}
-                      <StarRating
-                        rating={review2.rating}
-                        changeRating={changeRating}
-                      />
-                      <br />
-                      <input type="submit" />
-                      <br />
-                      <br />
-                    </form>
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <br />
-                <button className="btn btn-primary" onClick={handleFormClick}>
-                  Add Review
-                </button>
+                {reviewList}
                 <br />
                 <br />
               </>
@@ -232,9 +193,11 @@ const Movie = () => {
             {reviewForm && (
               <>
                 <form
-                  onSubmit={review.watched ? handleEditSubmit : handleAddSubmit}
+                  onSubmit={
+                    review.watched ? handleEditSubmit : handleAddReviewSubmit
+                  }
                 >
-                  <h2>{review.watched ? "Edit" : "Add"} your Review: </h2>
+                  <br />
                   <br />
                   <label>Review: </label>
                   <textarea

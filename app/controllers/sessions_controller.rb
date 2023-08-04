@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :authorize, only: :create
 
     # login
     def create
@@ -15,6 +16,7 @@ class SessionsController < ApplicationController
     # logout
     def destroy
         session.clear
+        head :no_content
     end
 
     #The session hash is where the user is stored

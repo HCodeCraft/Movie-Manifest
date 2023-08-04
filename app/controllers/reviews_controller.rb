@@ -14,12 +14,23 @@ class ReviewsController < ApplicationController
       
       # I already have the user
       def update
-        review = @current_user.reviews.find_by(id: params[:id])
+        review = find_review
         review.update(review_params)
             render json: review
       end
 
+
+      def destroy
+       review = find_review
+        review.destroy
+        head :no_content
+    end
+
     private
+
+    def find_review
+        review = @current_user.reviews.find_by(id: params[:id])
+    end
       
 
     def review_params

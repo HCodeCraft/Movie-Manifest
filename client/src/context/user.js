@@ -53,13 +53,29 @@ function UserProvider({ children }) {
   };
 
   const onAddReview = (newReview) => {
+    // Updating user's reviews
     if (newReview) {
       console.log("newReview", newReview);
-      const updatedReviews = [...user.reviews, newReview];
-      const updatedUser = { ...user, reviews: updatedReviews };
+      const updatedUserReviews = [...user.reviews, newReview];
+      const updatedUser = { ...user, reviews: updatedUserReviews };
       setUser(updatedUser);
+      console.log("movie.reviews", movie.reviews)
+    //   const selectedCategory = categories.find(
+    //     (c) => c.id === newCraft.category_id
+    //   );
+    //   const updatedCrafts = [...selectedCategory.crafts, newCraft];
+    //   const updatedCategory = { ...selectedCategory, crafts: updatedCrafts };
+    //   const updatedCategories = categories.map((category) =>
+    //     category.id === updatedCategory.id ? updatedCategory : category
+    //   );
+    //   setCategories(updatedCategories)
     }
+    console.log("newReview", newReview)
   };
+
+  const onDeleteReview = () => {
+
+  }
   
 
     const addMovie = (newMovie) => {
@@ -112,27 +128,22 @@ function UserProvider({ children }) {
 
   /// need to give this fuction the id
   const onEditReview = (editedReview) => {
-    console.log("editedReview", editedReview)
     // need to edit the movie.reviews
-    // const oneMovie = movies.find((movie) => movie.id == editedReview.movie_id);
-    // console.log("oneMovie", oneMovie);
-    // const updatedMovieReviews = oneMovie.reviews((review) =>
-    //   review.id === editedReview.id ? editedReview : review
-    // );
-    // console.log("updatedMovieReviews", updatedMovieReviews);
-    // const updatedMovie = { ...oneMovie, reviews: updatedMovieReviews };
-    // console.log("updatedMovie", updatedMovie);
-    // const updatedMovies = movies.map((movie) =>
-    //   movie.id === updatedMovie.id ? updatedMovie : movie
-    // );
-    // console.log("updatedMovies", updatedMovies);
-    // setMovies(updatedMovies);
-    // console.log("movies after update", movies);
-    // need to edit the user.reviews
+    const oneMovie = movies.find((movie) => movie.id == editedReview.movie_id);
+    const updatedMovieReviews = oneMovie.reviews.map((review) =>
+      review.id === editedReview.id ? editedReview : review
+    );
+    const updatedMovie = { ...oneMovie, reviews: updatedMovieReviews };
+    const updatedMovies = movies.map((movie) =>
+      movie.id === updatedMovie.id ? updatedMovie : movie
+    );
+    setMovies(updatedMovies);
+    // adding the review to user's review's
+    const updatedUserReviews = user.reviews.map((review) => review.id === editedReview.id ? editedReview : review)
+    setUser({...user, reviews: updatedUserReviews})
   };
 
   const onDeleteMovie = (deletedMovie) => {
-    // need to update user's movies?
     const newMovies = movies.filter((movie) => movie.id != deletedMovie.id);
     setMovies(newMovies);
 

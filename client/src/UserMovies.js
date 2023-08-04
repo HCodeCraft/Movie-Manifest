@@ -8,8 +8,12 @@ const UserMovies = () => {
   const { user, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const uniqueMovies = [...new Set(user.movies)]
+
+  console.log("uniqueMovies", uniqueMovies)
+
   const movieList = user.movies
-    ? user.movies.map((movie) => (
+    ?  uniqueMovies.map((movie) => (
         <div key={movie.id}>
           <MovieCard
             title={movie.title}
