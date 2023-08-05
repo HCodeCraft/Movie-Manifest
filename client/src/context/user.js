@@ -16,9 +16,11 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
-        if (data.error) {
+        if (data.errors) {
           setLoggedIn(false);
+          
         } else {
+            console.log("data", data)
           setLoggedIn(true);
           fetchUserMovies();
         }
@@ -75,9 +77,16 @@ function UserProvider({ children }) {
     // I FEEL LIKE THERES SOME UNNESSISARY CODE HERE, AN ASSOCIATION PROBABLY TOOK
     // care of some of this state
     if (oneMovie) {
-    setUser({...user.movies, oneMovie})
-    console.log("There was oneMovie") }
-
+        // Check if oneMovie is already present in user.movies
+        const movieAlreadyExists = user.movies.some((movie) => movie.id === oneMovie.id);
+      
+        // If oneMovie is not already in user.movies, add it to the array
+        if (!movieAlreadyExists) {
+          setUser((prevUser) => ({ ...prevUser, movies: [...prevUser.movies, oneMovie] }));
+          console.log("There was oneMovie");
+        }
+      }
+      
 
   };
 
@@ -116,6 +125,7 @@ function UserProvider({ children }) {
     const newUserMovies = user.movies.filter((movie) => movie.id != deletedReview.movie_id)
         setUser({...user, movies:newUserMovies})
         console.log("newUserMovies", newUserMovies)
+        console.log("user after no reviews", user)
       navigate(`users/movies`);
     }
   };

@@ -148,7 +148,7 @@ const Movie = () => {
     />
   ));
 
-  return loggedIn ? (
+  return loggedIn === true ? (
     <>
       <div className="top_banner">
         <h1>{movie.title}</h1>
@@ -233,8 +233,20 @@ const Movie = () => {
     </>
   ) : (
     <>
+    <br/>
+    <br/>
+    <div className="top_banner">
       <br />
-      <h1>You're not authorized, please log in or create an account</h1>
+      <h1>You're not authorized, please </h1>
+      <br/>
+      <Link to={`/`}>
+         <button className="btn btn-accent">Log In</button> </Link>
+         <br/>
+        <h1> or </h1>
+        <br/>
+        <Link to={`/users/new`}>
+         <button className="btn btn-accent">Signup</button> </Link>
+         </div>
     </>
   );
 };

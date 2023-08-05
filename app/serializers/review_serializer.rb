@@ -3,7 +3,7 @@ class ReviewSerializer < ActiveModel::Serializer
   #maybe need to not include user id?
   belongs_to :user
   belongs_to :movie
-  # has_one :user
+
 
   def stars
     rating = object.rating.to_i

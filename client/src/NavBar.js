@@ -40,7 +40,8 @@ const NavBar = () => {
   } else {
     return (
       <>
-        <div>
+      <br/>
+        <div className="top_banner">
           <h1>Movie Manifest</h1>
           {/* <NavLink to={'/signup'}>Signup</NavLink> */}
         </div>

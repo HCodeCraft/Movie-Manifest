@@ -59,12 +59,16 @@ function Home() {
     );
   } else {
     return (
-      <div>
+      <div className="top_banner">
+        <br/>
       <h2>Welcome to Movie Manifest!</h2>
+      <br/>
       <h3>Where you can add, review and rate your favorite movies!</h3>
       <h3> Never forget a movie again!</h3>
+      <br/>
 
       <h2>Please Login: </h2>
+      <br/>
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
         <input
@@ -72,7 +76,7 @@ function Home() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        ></input>
+        ></input> <br/>
         <label>Password:</label>
         <input
           name="password"
@@ -82,8 +86,10 @@ function Home() {
         ></input>
         <input type="submit" />
       </form>
+      <br/>
       <h3>Or:</h3>
-      <button onClick={() => navigate(`users/new`)}>Create an Account</button>
+      <br/>
+      <button className="btn" onClick={() => navigate(`users/new`)}>Create an Account</button>
     </div>
 
     );
