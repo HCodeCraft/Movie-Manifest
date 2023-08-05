@@ -8,21 +8,14 @@ const ReviewCard = ({ movie_id }) => {
     (review) => review.movie_id === movie_id
   );
 
-;
-
   return (
     <div>
-      {" "}
-      {oneReview[0].rating < 1 ? (
-        <h3>Unwatched</h3>
-      ) : (
-        <>
-          {" "}
-          <br/>
-          <p>{oneReview[0].stars}</p>
-          {/* <p>-{oneReview[0].username}</p>{" "} */}
-        </>
-      )}
+      <>
+        <br />
+        <p>My latest rating:</p>
+        <p>{oneReview[0] && oneReview[0].stars}</p>
+        {/* <p>-{oneReview[0].username}</p>{" "} */}
+      </>
     </div>
   );
 };

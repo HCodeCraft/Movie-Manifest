@@ -54,17 +54,18 @@ const NewMovie = () => {
       link: movie.link
     });
 
-    if (review.watched) {
-      addReview({
-        reviewtext: review.reviewtext,
-        watched: review.watched,
-        rating: review.rating,
-        user_id: user.id,
-        movie_id: movies.length - 1,
-      });
-    }
+    // if (review.watched) {
+    //   addReview({
+    //     reviewtext: review.reviewtext,
+    //     watched: review.watched,
+    //     rating: review.rating,
+    //     user_id: user.id,
+    //     movie_id: movies.length - 1,
+      // })
 
-    // navigate(`/movies`)
+    // }
+    console.log("review.watched", review.watched)
+    navigate(`/movies`)
   };
 
   const changeRating = (num) => {

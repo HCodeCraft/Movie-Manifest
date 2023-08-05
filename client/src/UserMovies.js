@@ -8,12 +8,9 @@ const UserMovies = () => {
   const { user, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const uniqueMovies = [...new Set(user.movies)]
-
-  console.log("uniqueMovies", uniqueMovies)
 
   const movieList = user.movies
-    ?  uniqueMovies.map((movie) => (
+    ?  user.movies.map((movie) => (
         <div key={movie.id}>
           <MovieCard
             title={movie.title}
@@ -32,8 +29,6 @@ const UserMovies = () => {
     : [];
 
     useEffect(() => {
-
-      console.log("user", user)
 
     }, [user])
 

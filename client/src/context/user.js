@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = React.createContext();
 
@@ -7,6 +8,8 @@ function UserProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/me")
@@ -52,40 +55,35 @@ function UserProvider({ children }) {
     setMovies([...movies, newMovie]);
   };
 
-  const onAddReview = (newReview, movie) => {
-    console.log("user from onAddReview", user)
-    console.log("movie from onAddReview", movie)
-    // Updating user's reviews
-
-    console.log("newReview", newReview);
+  const onAddReview = (newReview) => {
+    // updating user's reviews
     const updatedUserReviews = [...user.reviews, newReview];
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
     // need to update movie's reviews
 
+    // updating movies
     const oneMovie = movies.find((movie) => movie.id === newReview.movie_id);
+    console.log("initial oneMovie.reviews", oneMovie.reviews);
     const updatedReviews = [...oneMovie.reviews, newReview];
     const updatedMovie = { ...oneMovie, reviews: updatedReviews };
     const updatedMovies = movies.map((movie) =>
       movie.id === updatedMovie.id ? updatedMovie : movie
     );
-    console.log("updatedMovies", updatedMovies)
+    console.log("updatedMovies", updatedMovies);
     setMovies(updatedMovies);
-    //   const selectedCategory = categories.find(
-    //     (c) => c.id === newCraft.category_id
-    //   );
-    //   const updatedCrafts = [...selectedCategory.crafts, newCraft];
-    //   const updatedCategory = { ...selectedCategory, crafts: updatedCrafts };
-    //   const updatedCategories = categories.map((category) =>
-    //     category.id === updatedCategory.id ? updatedCategory : category
-    //   );
-    //   setCategories(updatedCategories)
+    // I FEEL LIKE THERES SOME UNNESSISARY CODE HERE, AN ASSOCIATION PROBABLY TOOK
+    // care of some of this state
+    if (oneMovie) {
+    setUser({...user.movies, oneMovie})
+    console.log("There was oneMovie") }
 
-    console.log("newReview", newReview);
+
   };
 
   const onDeleteReview = (deletedReview) => {
-    const oneMovie = movies.find(
+    // UPDATING movie.reviews STATE
+    const oneMovie = movies && movies.find(
       (movie) => movie.id === deletedReview.movie_id
     );
     const newMovieReviews = oneMovie.reviews.filter(
@@ -96,13 +94,30 @@ function UserProvider({ children }) {
       movie.id === updatedMovie.id ? updatedMovie : movie
     );
     setMovies(updatedMovies);
-    // need to setMovies
+    // need to update state for users.reviews
 
     // need  to set state for users to not have the deleted review
     // Deleting a review from users
 
-    // const updatedUser = { ...user, movies: newUserMovies };
-    // setUser(updatedUser);
+    const newUserReviewList = user.reviews.filter(
+        (review) => review.id !== deletedReview.id
+      );
+      setUser((prevUser) => ({ ...prevUser, reviews: newUserReviewList }));
+      
+    // not updating the reveiws properly ^
+
+
+    // if the movie has no user.reviews I want it to redirect to MyMovies
+    const userReviewList = updatedMovie.reviews.find(
+      (review) => review.user_id === user.id
+    );
+    console.log("userReviewList", userReviewList);
+    if (!userReviewList) {
+    const newUserMovies = user.movies.filter((movie) => movie.id != deletedReview.movie_id)
+        setUser({...user, movies:newUserMovies})
+        console.log("newUserMovies", newUserMovies)
+      navigate(`users/movies`);
+    }
   };
 
   const addMovie = (newMovie) => {
@@ -122,22 +137,6 @@ function UserProvider({ children }) {
       });
   };
 
-//   const addReview = (newReview) => {
-//     fetch("/reviews", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(newReview),
-//     })
-//       .then((res) => res.json())
-//       .then((data) => {
-//         onAddReview(data);
-//         console.log("data from addReview", data)
-//         // Not working ^ :(
-//         // navigate("/users/movies");
-//       });
-//   };
 
   const onEditMovie = (editedMovie) => {
     const updatedMovies = movies.map((movie) => {
@@ -195,7 +194,7 @@ function UserProvider({ children }) {
         onDeleteReview,
         onEditReview,
         onEditMovie,
-        onAddReview
+        onAddReview,
       }}
     >
       {children}

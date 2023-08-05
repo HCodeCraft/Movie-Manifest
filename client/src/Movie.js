@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "./context/user";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, NavLink } from "react-router-dom";
 import StarRating from "./StarRating";
 import BigReviewCard from "./BigReviewCard";
 
@@ -112,9 +112,10 @@ const Movie = () => {
     const selectedMovie = movies.find((m) => m.id == params.id);
 
     if (selectedMovie) {
-      const myReview = user.reviews.find(
+      const myReview = user.reviews && user.reviews.find(
         (r) => r.movie_id === selectedMovie.id
       );
+
       myReview && setReview(myReview);
 
       setMovie(selectedMovie);
@@ -164,6 +165,9 @@ const Movie = () => {
           <p>{movie.description}</p>
           <br />
           <br />
+          <NavLink to={movie.link}><button className="btn">Link</button></NavLink>
+          <br/>
+          <br/>
           <Link to={`edit`}>
             <button className="btn btn-primary">Edit Movie</button>
           </Link>
