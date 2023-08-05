@@ -7,7 +7,7 @@ import BigReviewCard from "./BigReviewCard";
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview } =
+  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview} =
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
@@ -30,7 +30,7 @@ const Movie = () => {
     rating: 0,
   });
 
-  const [additionalForm, setAdditionalForm] = useState(false);
+  // const [additionalForm, setAdditionalForm] = useState(false);
 
   const handleReviewChange = (e) => {
     const value =
@@ -64,10 +64,9 @@ const Movie = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (onAddReview) {
-          onAddReview(data);
-          console.log("OnAddReview Ran")
-        }
+          onAddReview(data, movie);
+         
+    
         setReviewForm(false);
         // I need to update movie state to add the review
         console.log("It was added!");
@@ -142,6 +141,7 @@ const Movie = () => {
       username={review.username}
       created_at={review.created_at}
       id={review.id}
+      create_date={review.create_date}
       handleFormClick={handleFormClick}
       handleAdditionalFormClick={handleAdditionalFormClick}
     />
