@@ -34,7 +34,7 @@ function Home() {
 
     console.log("user", user)
 
-  }, [user])
+  }, [user, loggedIn])
 
 
  

@@ -35,8 +35,9 @@ function UserProvider({ children }) {
       });
   };
 
-  const login = () => {
+  const login = (user) => {
     setUser(user);
+    console.log("user from login", user)
 
     setLoggedIn(true);
     setUsername(user.username);
