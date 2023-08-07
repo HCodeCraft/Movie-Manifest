@@ -23,43 +23,43 @@ const NavBar = () => {
   if (loggedIn) {
     return (
       <>
-      <div className="topdiv">
-        <div className="bannerbox">
-        <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
+        <div className="topdiv">
+          <div className="bannerbox">
+            <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
+          </div>
+          <header className="full-screen-header">
+            <nav className="nav nav-top">
+              <br />
+              <br />
+              <br />
+              <ul className="nav-list">
+                <li>
+                  <NavLink to={"/"}>Home</NavLink>{" "}
+                </li>
+                <li>
+                  <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
+                </li>
+                <li>
+                  <NavLink to={"/movies"}>All Movies</NavLink>{" "}
+                </li>
+                <li>
+                  <NavLink to={"movies/new"}>Add a Movie</NavLink>
+                </li>
+                <li>
+                  <h3 className="username">{user ? user.username : ""}</h3>
+                </li>
+                <li>
+                  {" "}
+                  <button className="btn" onClick={logoutUser}>
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </header>
         </div>
-        <header className="full-screen-header">
-          <nav className="nav nav-top">
-            <br/>
-            <br/>
-            <br/>
-            <ul className="nav-list">
-              <li>
-                <NavLink to={"/"}>Home</NavLink>{" "}
-              </li>
-              <li>
-                <NavLink to={"/users/movies"}>My Movies/Reviews</NavLink>{" "}
-              </li>
-              <li>
-                <NavLink to={"/movies"}>All Movies</NavLink>{" "}
-              </li>
-              <li>
-                <NavLink to={"movies/new"}>Add a Movie</NavLink>
-              </li>
-              <li>
-                <h3 className="username">{user ? user.username : ""}</h3>
-              </li>
-              <li>
-                {" "}
-                <button className="btn" onClick={logoutUser}>
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header>
-      </div>
-      <br/>
-      <br/>
+        <br />
+        <br />
       </>
     );
   } else {
@@ -67,7 +67,7 @@ const NavBar = () => {
       <>
         <br />
         <div className="bannerbox">
-        <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
+          <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
         </div>
       </>
     );

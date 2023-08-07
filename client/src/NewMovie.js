@@ -4,8 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import StarRating from "./StarRating";
 
 const NewMovie = () => {
-
-
   const { user, loggedIn, movies, addMovie, addReview } =
     useContext(UserContext);
 
@@ -51,7 +49,7 @@ const NewMovie = () => {
       genres: movie.genres,
       description: movie.description,
       runtime: movie.runtime,
-      link: movie.link
+      link: movie.link,
     });
 
     // if (review.watched) {
@@ -61,11 +59,11 @@ const NewMovie = () => {
     //     rating: review.rating,
     //     user_id: user.id,
     //     movie_id: movies.length - 1,
-      // })
+    // })
 
     // }
-    console.log("review.watched", review.watched)
-    navigate(`/movies`)
+    console.log("review.watched", review.watched);
+    navigate(`/movies`);
   };
 
   const changeRating = (num) => {
@@ -87,7 +85,7 @@ const NewMovie = () => {
         <br />
 
         <form className="blk" onSubmit={handleSubmit}>
-          <label >Movie Title: </label>
+          <label>Movie Title: </label>
           <input name="title" onChange={handleChange} type="text" /> <br />
           <br />
           <label>Image url: </label>
@@ -148,20 +146,22 @@ const NewMovie = () => {
     </div>
   ) : (
     <>
-    <br/>
-    <br/>
-    <div className="top_banner">
       <br />
-      <h1>You're not authorized, please </h1>
-      <br/>
-      <Link to={`/`}>
-         <button className="btn btn-accent">Log In</button> </Link>
-         <br/>
+      <br />
+      <div className="top_banner">
+        <br />
+        <h1>You're not authorized, please </h1>
+        <br />
+        <Link to={`/`}>
+          <button className="btn btn-accent">Log In</button>{" "}
+        </Link>
+        <br />
         <h1> or </h1>
-        <br/>
+        <br />
         <Link to={`/users/new`}>
-         <button className="btn btn-accent">Signup</button> </Link>
-         </div>
+          <button className="btn btn-accent">Signup</button>{" "}
+        </Link>
+      </div>
     </>
   );
 };

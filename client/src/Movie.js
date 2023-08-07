@@ -7,7 +7,7 @@ import BigReviewCard from "./BigReviewCard";
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview} =
+  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview } =
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
@@ -64,9 +64,8 @@ const Movie = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-          onAddReview(data, movie);
-         
-    
+        onAddReview(data, movie);
+
         setReviewForm(false);
         // I need to update movie state to add the review
         console.log("It was added!");
@@ -112,9 +111,9 @@ const Movie = () => {
     const selectedMovie = movies.find((m) => m.id == params.id);
 
     if (selectedMovie) {
-      const myReview = user.reviews && user.reviews.find(
-        (r) => r.movie_id === selectedMovie.id
-      );
+      const myReview =
+        user.reviews &&
+        user.reviews.find((r) => r.movie_id === selectedMovie.id);
 
       myReview && setReview(myReview);
 
@@ -165,9 +164,11 @@ const Movie = () => {
           <p className="blk">{movie.description}</p>
           <br />
           <br />
-          <NavLink to={movie.link}><button className="btn">Link</button></NavLink>
-          <br/>
-          <br/>
+          <NavLink to={movie.link}>
+            <button className="btn">Link</button>
+          </NavLink>
+          <br />
+          <br />
           <Link to={`edit`}>
             <button className="btn btn-primary space">Edit Movie</button>
           </Link>
@@ -233,20 +234,22 @@ const Movie = () => {
     </>
   ) : (
     <>
-    <br/>
-    <br/>
-    <div className="top_banner">
       <br />
-      <h1>You're not authorized, please </h1>
-      <br/>
-      <Link to={`/`}>
-         <button className="btn btn-accent">Log In</button> </Link>
-         <br/>
+      <br />
+      <div className="top_banner">
+        <br />
+        <h1>You're not authorized, please </h1>
+        <br />
+        <Link to={`/`}>
+          <button className="btn btn-accent">Log In</button>{" "}
+        </Link>
+        <br />
         <h1> or </h1>
-        <br/>
+        <br />
         <Link to={`/users/new`}>
-         <button className="btn btn-accent">Signup</button> </Link>
-         </div>
+          <button className="btn btn-accent">Signup</button>{" "}
+        </Link>
+      </div>
     </>
   );
 };

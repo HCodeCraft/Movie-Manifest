@@ -7,46 +7,50 @@ const BigReviewCard = ({
   username,
   handleFormClick,
   create_date,
-  review
+  review,
 }) => {
   const { user, onDeleteReview } = useContext(UserContext);
 
-  console.log("user from BigReviewCard", user)
+  console.log("user from BigReviewCard", user);
 
   const handleDeleteReview = (deletedReview) => {
     fetch(`/reviews/${deletedReview.id}`, {
       method: "DELETE",
     }).then(() => {
-      onDeleteReview(review)
+      onDeleteReview(review);
     });
   };
 
   return (
     <div>
-      <br/>
-    <div className="bigreviews">
-  
-      <div className="stardiv">{stars}</div>
       <br />
-      
-      {create_date}
-      <br />
-      <br />
-      {text}
-      <br />
-      <br/>
-    
-      {user.username === username ? (
-        <>
-          <button className="btn space" onClick={() => handleFormClick(review)}>
-            Edit
-          </button>{" "}
-          <button className="btn" onClick={() => handleDeleteReview(review)}>Delete</button>
-    </>
-      ) : (
-        <p>-{username}</p>
-      )}
-    </div>
+      <div className="bigreviews">
+        <div className="stardiv">{stars}</div>
+        <br />
+
+        {create_date}
+        <br />
+        <br />
+        {text}
+        <br />
+        <br />
+
+        {user.username === username ? (
+          <>
+            <button
+              className="btn space"
+              onClick={() => handleFormClick(review)}
+            >
+              Edit
+            </button>{" "}
+            <button className="btn" onClick={() => handleDeleteReview(review)}>
+              Delete
+            </button>
+          </>
+        ) : (
+          <p>-{username}</p>
+        )}
+      </div>
     </div>
   );
 };

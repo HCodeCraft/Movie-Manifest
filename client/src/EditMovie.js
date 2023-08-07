@@ -5,8 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 function EditMovie() {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onEditMovie } =
-    useContext(UserContext);
+  const { user, loggedIn, movies, onEditMovie } = useContext(UserContext);
 
   const [movie, setMovie] = useState({
     title: "",
@@ -34,7 +33,6 @@ function EditMovie() {
     });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const editedMovie = {
@@ -43,7 +41,7 @@ function EditMovie() {
       genres: movie.genres,
       description: movie.description,
       runtime: movie.runtime,
-      link: movie.link
+      link: movie.link,
     };
 
     fetch(`/movies/${params.id}`, {
@@ -55,16 +53,16 @@ function EditMovie() {
     })
       .then((res) => res.json())
       .then((data) => {
-        onEditMovie(data)
-    
+        onEditMovie(data);
+
         setMovie({
-            title: "",
-            image_url: "",
-            description: "",
-            genres: "",
-            runtime: "",
-            link: ""
-          })
+          title: "",
+          image_url: "",
+          description: "",
+          genres: "",
+          runtime: "",
+          link: "",
+        });
         navigate(`/movies/${params.id}`);
       });
   };
@@ -73,7 +71,7 @@ function EditMovie() {
     <>
       <div className="top_banner">
         <br />
-        <div >
+        <div>
           <h1 className="title">Edit {movie.title}</h1>
         </div>
         <br />
@@ -140,9 +138,8 @@ function EditMovie() {
           <br />
 
           <input className="btn" type="submit" />
-          <br/>
-          <br/>
-
+          <br />
+          <br />
         </form>
       </div>
     </>

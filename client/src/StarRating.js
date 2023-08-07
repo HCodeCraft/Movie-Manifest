@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-const StarRating = ({changeRating, rating}) => {
-//   const [rating, setRating] = useState(null);
+const StarRating = ({ changeRating, rating }) => {
   const [hover, setHover] = useState(null);
 
   return (
     <div>
       {Array(5)
         .fill()
-        .map((star, i) => {
+        .map((i) => {
           const ratingValue = i + 1;
-
           return (
             <label key={i}>
               <input
