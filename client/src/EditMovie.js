@@ -37,13 +37,14 @@ function EditMovie() {
     e.preventDefault();
     const editedMovie = {
       title: movie.title,
-      image: movie.image_url,
+      image_url: movie.image_url,
       genres: movie.genres,
       description: movie.description,
       runtime: movie.runtime,
       link: movie.link,
     };
 
+    console.log("editedMovie", editedMovie)
     fetch(`/movies/${params.id}`, {
       method: "PATCH",
       headers: {
@@ -54,7 +55,7 @@ function EditMovie() {
       .then((res) => res.json())
       .then((data) => {
         onEditMovie(data);
-
+        console.log("data after editmovie", data)
         setMovie({
           title: "",
           image_url: "",
