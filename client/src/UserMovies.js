@@ -11,7 +11,7 @@ const UserMovies = () => {
 
   const movieList = user.movies
     ?  user.movies.map((movie) => (
-        <div key={movie.id}>
+        <div className="cardbox" key={movie.id}>
           <MovieCard
             title={movie.title}
             genres={movie.genres}
@@ -35,21 +35,28 @@ const UserMovies = () => {
   return loggedIn ? (
     <>
       <div className="top_banner">
-        <h1>My Movies</h1>
+        <h1 className="title">My Movies</h1>
       </div>
       <br />
       <div>
         {movieList.length ? (
           <div className="container"> {movieList} </div>
         ) : (
-          <>
+          <div className="top_banner blk">
             <h2>Looks like your list is empty! </h2>
             <br />
             <h2>Feel free to add some movies: </h2>
+            <br/>
             <Link to={"/movies/new"}>
-              <button>Add movie</button>
+              <button className="btn">Add New movie</button>
             </Link>
-          </>
+            <br/>
+            <h2>Or</h2>
+            <br/>
+            <Link to={"/movies"}>
+            <button className="btn">Rate Existing Movies</button>
+            </Link>
+          </div>
         )}
       </div>
     </>

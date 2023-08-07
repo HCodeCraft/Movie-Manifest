@@ -41,8 +41,16 @@ const Signup = () => {
 
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <>
+    <br/>
+    <br/>
+    <br/>
+    <div className="bigbox">
+    <div className="title signupbox">
+
+<h1>Create an account</h1>
+      <br/>
+      <form className="blk signupbox"onSubmit={handleSubmit}>
         <label>Username:</label>
         <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
         <br/>
@@ -52,12 +60,14 @@ const Signup = () => {
         <label>Confirm Password: </label>
         <input type="password" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}/>
         <br/>
-        <input type="submit"/>
+        <input className="btn"type="submit"/>
       </form>
       <ul>
         {errorsList}
       </ul>
     </div>
+    </div>
+    </>
   )
 }
 

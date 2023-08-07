@@ -76,7 +76,7 @@ const NewMovie = () => {
     <div>
       <br />
       <div className="top_banner">
-        <h1>Add a Movie</h1>
+        <h1 className="title">Add a Movie</h1>
 
         <br />
         <img
@@ -86,8 +86,8 @@ const NewMovie = () => {
         <br />
         <br />
 
-        <form onSubmit={handleSubmit}>
-          <label>Movie Title: </label>
+        <form className="blk" onSubmit={handleSubmit}>
+          <label >Movie Title: </label>
           <input name="title" onChange={handleChange} type="text" /> <br />
           <br />
           <label>Image url: </label>
@@ -140,7 +140,7 @@ const NewMovie = () => {
             </>
           )}
           <br />
-          <input type="submit" />
+          <input className="btn" type="submit" />
           <br />
           <br />
         </form>

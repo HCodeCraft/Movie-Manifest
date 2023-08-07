@@ -9,14 +9,17 @@ const ReviewCard = ({ movie_id }) => {
   );
 
   return (
-    <div>
+    <>
+    <div className="smallcard">
       <>
         <br />
         <p>My latest rating:</p>
         <p>{oneReview[0] && oneReview[0].stars}</p>
-        {/* <p>-{oneReview[0].username}</p>{" "} */}
       </>
     </div>
+    <br/>
+    {/* <br/> */}
+    </>
   );
 };
 

@@ -37,10 +37,10 @@ function UserProvider({ children }) {
 
   const login = (user) => {
     setUser(user);
-    console.log("user from login", user)
 
     setLoggedIn(true);
     setUsername(user.username);
+    fetchUserMovies()
   };
 
   const logout = () => {

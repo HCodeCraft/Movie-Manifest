@@ -39,17 +39,3 @@
     transform: rotate(360deg);
   }
 }
-
- .cardimg {
-  width: 150px;
-  height: 250px;
-}
-
-input[type="radio"]{
-  display: none;
-}
-
-.star {
-  cursor:pointer;
-  transition: color 200ms;
-}

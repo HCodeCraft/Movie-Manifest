@@ -22,7 +22,7 @@ const Movies = () => {
   /> </div> )
   return loggedIn ? (
     <div className="top_banner">
-    <div><h1>All movies</h1></div>
+    <div className="title"><h1>All movies</h1></div>
     <br/>
     <div  className="container">
       {movieList}

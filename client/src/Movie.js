@@ -151,18 +151,18 @@ const Movie = () => {
   return loggedIn === true ? (
     <>
       <div className="top_banner">
-        <h1>{movie.title}</h1>
+        <h1 className="title">{movie.title}</h1>
         <br />
         <img className="desimage" src={movie.image_url} alt={movie.title} />
         <br />
-        <h3>{movie.genres}</h3>
+        <h3 className="blk">{movie.genres}</h3>
         <br />
-        <h4>
+        <h4 className="blk">
           Runtime: {movie.runtime} mins ({movie.hours_and_min})
         </h4>
         <br />
         <div className="desdiv">
-          <p>{movie.description}</p>
+          <p className="blk">{movie.description}</p>
           <br />
           <br />
           <NavLink to={movie.link}><button className="btn">Link</button></NavLink>

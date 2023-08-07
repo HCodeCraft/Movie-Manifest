@@ -41,19 +41,26 @@ function Home() {
   if (loggedIn) {
     return (
       <div className="top_banner">
-      <h1>Welcome {user.username}!</h1>
+   
+      <h1 className="title">Welcome {user.username}!</h1>
       <br/>
-     <h2>Feel free to: </h2> 
+      <div className="blk title homebox">
+        <br/>
+     <h1>Feel free to: </h1> 
+     <br/>
      <br/>
       <NavLink to={"/movies"}>
-        <button>Browse Movies</button>
+        <button className="btn btn-primary">Browse Movies</button>
       </NavLink>
       <br/>
       <h2>Or</h2>
       <br/>
       <NavLink to={"/movies/new"}>
-        <button>Add a Movie</button>
+        <button className="btn btn-primary">Add a Movie</button>
       </NavLink>
+      <br/>
+      <br/>
+      </div>
     </div>
      
     );
@@ -61,15 +68,17 @@ function Home() {
     return (
       <div className="top_banner">
         <br/>
-      <h2>Welcome to Movie Manifest!</h2>
+      <h1 className="title">Welcome to Movie Manifest!</h1>
       <br/>
-      <h3>Where you can add, review and rate your favorite movies!</h3>
-      <h3> Never forget a movie again!</h3>
       <br/>
-
-      <h2>Please Login: </h2>
+      <h2>Where you can add, review and rate your favorite movies!</h2>
       <br/>
-      <form onSubmit={handleSubmit}>
+      <h2> Never forget what you thought of a movie again!</h2>
+      <br/>
+      <br/>
+      <h2 className="blk">Please Login: </h2>
+      <br/>
+      <form className="blk loginbox" onSubmit={handleSubmit}>
         <label>Username:</label>
         <input
           name="username"
@@ -84,12 +93,17 @@ function Home() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
-        <input type="submit" />
+        <br/>
+        <input className="btn" type="submit" />
+        <br/>
       </form>
       <br/>
-      <h3>Or:</h3>
+    
+      <h3 className="blk">Or:</h3>
       <br/>
+      <div className="blk">
       <button className="btn" onClick={() => navigate(`users/new`)}>Create an Account</button>
+      </div>
     </div>
 
     );
