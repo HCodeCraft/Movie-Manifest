@@ -357,3 +357,18 @@ input[type="radio"] {
   border: 2px solid #8b4513;
   width: 30%
 }
+
+.error {
+  border: 2px solid red;
+  padding: 6px;
+}
+
+.nomovies {
+  width: 30%;
+  border: 2px solid #8b4513;
+}
+
+.nomoviebox {
+  display: flex;
+  justify-content: center;
+}

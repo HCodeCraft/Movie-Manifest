@@ -21,18 +21,26 @@ function Home() {
     })
       .then((res) => res.json())
       .then((user) => {
-        login(user);
-        setUsername(user.username);
+        if (user.error) {
+          setError(user.error)
+          setUsername("")
+          setPassword("")
+        }
+        else {
+          login(user);
+          setUsername(user.username);
+        }
+
       })
-      .catch((error) => {
-        setError("An error occurred during login. Please try again.");
-        console.error("Error:", error);
-      });
+
+      ;
   };
 
   useEffect(() => {
     console.log("user", user);
   }, [user, loggedIn]);
+
+  console.log("loggedIn", loggedIn)
 
   if (loggedIn) {
     return (
@@ -62,6 +70,7 @@ function Home() {
     return (
       <div className="top_banner">
         <br />
+        <br/>
         <h1 className="title">Welcome to Movie Manifest!</h1>
         <br />
         <br />
@@ -93,7 +102,8 @@ function Home() {
             <input className="btn" type="submit" />
             <br />
           </form>
-          <br />
+          {error && <h3 className="error">Error: {error}</h3>}
+    
 
           <h3 className="blk">Or:</h3>
           <br />

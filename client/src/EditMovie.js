@@ -55,7 +55,7 @@ function EditMovie() {
       .then((res) => res.json())
       .then((data) => {
         onEditMovie(data);
-        console.log("data after editmovie", data)
+        
         setMovie({
           title: "",
           image_url: "",

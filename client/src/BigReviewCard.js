@@ -11,8 +11,6 @@ const BigReviewCard = ({
 }) => {
   const { user, onDeleteReview } = useContext(UserContext);
 
-  console.log("user from BigReviewCard", user);
-
   const handleDeleteReview = (deletedReview) => {
     fetch(`/reviews/${deletedReview.id}`, {
       method: "DELETE",

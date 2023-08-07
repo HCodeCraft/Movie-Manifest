@@ -7,6 +7,7 @@ function UserProvider({ children }) {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [userMovies, setUserMovies] = useState([])
   const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
@@ -16,31 +17,50 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
-        if (data.errors) {
-          setLoggedIn(false);
-          
-        } else {
-            console.log("data", data)
+        if (user && !data.errors) {
+          console.log("data", data);
           setLoggedIn(true);
-          fetchUserMovies();
+          fetchMovies();
+        } else {
+          console.log("data", data);
+          console.log("data.errors", data.errors);
         }
       });
   }, []);
 
-  const fetchUserMovies = () => {
+//   useEffect(()=> {
+//     setUserMovies(user.movies)
+//   }, [user])
+
+  const fetchMovies = () => {
     fetch("/movies")
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
+        // setUserMovies(user.movies)
+        // console.log("user.movies from in fetch", user.movies)
       });
   };
+
+//   useEffect(() => {
+//     // Fetch the user's movies only if it's not already fetched
+//     if (loggedIn && userMovies.length === 0) {
+//       getUserMovies();
+//     }
+//   }, [loggedIn, userMovies]);
+
+//   const getUserMovies = () => {
+//     setUserMovies(user.movies)
+//   }
 
   const login = (user) => {
     setUser(user);
 
     setLoggedIn(true);
     setUsername(user.username);
-    fetchUserMovies()
+    // setUserMovies(user.movies)
+    // console.log("userMovies from login", user.movies)
+    fetchMovies();
   };
 
   const logout = () => {
@@ -78,24 +98,26 @@ function UserProvider({ children }) {
     // I FEEL LIKE THERES SOME UNNESSISARY CODE HERE, AN ASSOCIATION PROBABLY TOOK
     // care of some of this state
     if (oneMovie) {
-        // Check if oneMovie is already present in user.movies
-        const movieAlreadyExists = user.movies.some((movie) => movie.id === oneMovie.id);
-      
-        // If oneMovie is not already in user.movies, add it to the array
-        if (!movieAlreadyExists) {
-          setUser((prevUser) => ({ ...prevUser, movies: [...prevUser.movies, oneMovie] }));
-          console.log("There was oneMovie");
-        }
-      }
-      
+      // Check if oneMovie is already present in user.movies
+      const movieAlreadyExists = user.movies.some(
+        (movie) => movie.id === oneMovie.id
+      );
 
+      // If oneMovie is not already in user.movies, add it to the array
+      if (!movieAlreadyExists) {
+        setUser((prevUser) => ({
+          ...prevUser,
+          movies: [...prevUser.movies, oneMovie],
+        }));
+        console.log("There was oneMovie");
+      }
+    }
   };
 
   const onDeleteReview = (deletedReview) => {
     // UPDATING movie.reviews STATE
-    const oneMovie = movies && movies.find(
-      (movie) => movie.id === deletedReview.movie_id
-    );
+    const oneMovie =
+      movies && movies.find((movie) => movie.id === deletedReview.movie_id);
     const newMovieReviews = oneMovie.reviews.filter(
       (review) => review.id !== deletedReview.id
     );
@@ -110,12 +132,11 @@ function UserProvider({ children }) {
     // Deleting a review from users
 
     const newUserReviewList = user.reviews.filter(
-        (review) => review.id !== deletedReview.id
-      );
-      setUser((prevUser) => ({ ...prevUser, reviews: newUserReviewList }));
-      
-    // not updating the reveiws properly ^
+      (review) => review.id !== deletedReview.id
+    );
+    setUser((prevUser) => ({ ...prevUser, reviews: newUserReviewList }));
 
+    // not updating the reveiws properly ^
 
     // if the movie has no user.reviews I want it to redirect to MyMovies
     const userReviewList = updatedMovie.reviews.find(
@@ -123,10 +144,12 @@ function UserProvider({ children }) {
     );
     console.log("userReviewList", userReviewList);
     if (!userReviewList) {
-    const newUserMovies = user.movies.filter((movie) => movie.id != deletedReview.movie_id)
-        setUser({...user, movies:newUserMovies})
-        console.log("newUserMovies", newUserMovies)
-        console.log("user after no reviews", user)
+      const newUserMovies = user.movies.filter(
+        (movie) => movie.id != deletedReview.movie_id
+      );
+      setUser({ ...user, movies: newUserMovies });
+      console.log("newUserMovies", newUserMovies);
+      console.log("user after no reviews", user);
       navigate(`users/movies`);
     }
   };
@@ -147,7 +170,6 @@ function UserProvider({ children }) {
         // navigate("/movies");
       });
   };
-
 
   const onEditMovie = (editedMovie) => {
     const updatedMovies = movies.map((movie) => {
@@ -200,6 +222,7 @@ function UserProvider({ children }) {
         signup,
         loggedIn,
         movies,
+        userMovies,
         addMovie,
         onDeleteMovie,
         onDeleteReview,

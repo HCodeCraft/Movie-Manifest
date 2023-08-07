@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./context/user";
 import { useNavigate, Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
@@ -8,8 +8,22 @@ const UserMovies = () => {
   const { user, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const movieList = user.movies
-    ? user.movies.map((movie) => (
+const [userMovies, setUserMovies] = useState([])
+
+useEffect(()=> {
+
+  const myMovies = user.movies
+  console.log("myMovies", myMovies)
+  if (myMovies){
+    setUserMovies(myMovies)
+    console.log("userMovies from in useEffect", userMovies)
+  }
+
+},[user])
+
+
+  const movieList = 
+   userMovies.map((movie) => (
         <div className="cardbox" key={movie.id}>
           <MovieCard
             title={movie.title}
@@ -24,10 +38,10 @@ const UserMovies = () => {
 
           <ReviewCard movie_id={movie.id} />
         </div>
-      ))
-    : [];
+      )) 
+   ;
 
-  useEffect(() => {}, [user]);
+
 
   return loggedIn ? (
     <>
@@ -36,10 +50,11 @@ const UserMovies = () => {
       </div>
       <br />
       <div>
-        {movieList.length ? (
+        {movieList.length > 0 ? (
           <div className="container"> {movieList} </div>
         ) : (
-          <div className="top_banner blk">
+          <div className="nomoviebox">
+          <div className="top_banner blk nomovies">
             <h2>Looks like your list is empty! </h2>
             <br />
             <h2>Feel free to add some movies: </h2>
@@ -53,6 +68,7 @@ const UserMovies = () => {
             <Link to={"/movies"}>
               <button className="btn">Rate Existing Movies</button>
             </Link>
+          </div>
           </div>
         )}
       </div>

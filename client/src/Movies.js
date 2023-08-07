@@ -4,7 +4,7 @@ import MovieCard from "./MovieCard";
 import { Link } from "react-router-dom";
 
 const Movies = () => {
-  const { user, loggedIn, movies } = useContext(UserContext);
+  const { loggedIn, movies } = useContext(UserContext);
 
   console.log("movies", movies);
   console.log("loggedIn", loggedIn);
