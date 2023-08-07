@@ -352,3 +352,8 @@ input[type="radio"] {
 .stardiv {
   color: yellow;
 }
+
+.newform {
+  border: 2px solid #8b4513;
+  width: 30%
+}

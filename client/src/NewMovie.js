@@ -84,7 +84,7 @@ const NewMovie = () => {
         <br />
         <br />
 
-        <form className="blk" onSubmit={handleSubmit}>
+        <form className="blk newform" onSubmit={handleSubmit}>
           <label>Movie Title: </label>
           <input name="title" onChange={handleChange} type="text" /> <br />
           <br />

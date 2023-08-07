@@ -8,7 +8,7 @@ const StarRating = ({ changeRating, rating }) => {
     <div>
       {Array(5)
         .fill()
-        .map((i) => {
+        .map((stars, i) => {
           const ratingValue = i + 1;
           return (
             <label key={i}>

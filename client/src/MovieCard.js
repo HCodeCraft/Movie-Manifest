@@ -20,7 +20,7 @@ const MovieCard = ({
         <h2 className="movtitle">{title}</h2>
         <h3 className="genres"> {genres}</h3>
         <h4>
-          Runtime: {runtime} mins ({hours_and_min})
+          Runtime: {runtime} mins {runtime > 59 ? `(${hours_and_min})` : null}
         </h4>
         <p>{short_description}</p>
         <br />

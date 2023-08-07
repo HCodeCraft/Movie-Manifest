@@ -157,7 +157,7 @@ const Movie = () => {
         <h3 className="blk">{movie.genres}</h3>
         <br />
         <h4 className="blk">
-          Runtime: {movie.runtime} mins ({movie.hours_and_min})
+          Runtime: {movie.runtime} mins {movie.runtime > 59 ? `(${movie.hours_and_min})` : null}
         </h4>
         <br />
         <div className="desdiv">
