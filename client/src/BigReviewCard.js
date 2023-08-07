@@ -26,9 +26,9 @@ const BigReviewCard = ({
       <br/>
     <div className="bigreviews">
   
-      {stars}
+      <div className="stardiv">{stars}</div>
       <br />
-      <br />
+      
       {create_date}
       <br />
       <br />
@@ -38,7 +38,7 @@ const BigReviewCard = ({
     
       {user.username === username ? (
         <>
-          <button className="btn" onClick={() => handleFormClick(review)}>
+          <button className="btn space" onClick={() => handleFormClick(review)}>
             Edit
           </button>{" "}
           <button className="btn" onClick={() => handleDeleteReview(review)}>Delete</button>

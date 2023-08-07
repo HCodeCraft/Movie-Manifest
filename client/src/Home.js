@@ -76,9 +76,10 @@ function Home() {
       <h2> Never forget what you thought of a movie again!</h2>
       <br/>
       <br/>
+      <div className="loginbox blk">
       <h2 className="blk">Please Login: </h2>
       <br/>
-      <form className="blk loginbox" onSubmit={handleSubmit}>
+      <form className="blk login" onSubmit={handleSubmit}>
         <label>Username:</label>
         <input
           name="username"
@@ -105,7 +106,7 @@ function Home() {
       <button className="btn" onClick={() => navigate(`users/new`)}>Create an Account</button>
       </div>
     </div>
-
+    </div>
     );
   }
 }

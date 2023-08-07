@@ -323,7 +323,16 @@ input[type="radio"]{
   flex-direction:column;
   align-items:center;
   justify-content: center;
-  width: 20%
+  width: 30%;
+  border: 2px solid #8B4513;
+
+}
+
+.login{
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  flex-direction: column;
 }
 
 .signupbox {
@@ -338,4 +347,18 @@ input[type="radio"]{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.space {
+  margin-right: 8px;
+}
+
+.toplabel {
+  display:flex;
+  align-items:flex-start;
+  flex-direction:row;
+}
+
+.stardiv {
+  color: yellow
 }

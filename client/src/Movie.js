@@ -169,11 +169,11 @@ const Movie = () => {
           <br/>
           <br/>
           <Link to={`edit`}>
-            <button className="btn btn-primary">Edit Movie</button>
+            <button className="btn btn-primary space">Edit Movie</button>
           </Link>
 
           <button
-            className="btn btn-primary"
+            className="btn btn-primary space"
             onClick={() => handleDeleteMovie(params.id)}
           >
             Delete Movie
@@ -203,7 +203,7 @@ const Movie = () => {
                 >
                   <br />
                   <br />
-                  <label>Review: </label>
+                  <label className="toplabel">Review: </label>
                   <textarea
                     rows={5}
                     cols={20}
@@ -221,7 +221,7 @@ const Movie = () => {
                     changeRating={changeRating}
                   />
                   <br />
-                  <input type="submit" />
+                  <input className="btn" type="submit" />
                   <br />
                   <br />
                 </form>

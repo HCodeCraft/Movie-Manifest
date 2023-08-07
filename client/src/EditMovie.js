@@ -131,7 +131,7 @@ function EditMovie() {
           <br />
           <label>Link:</label>
           <input
-            name="genres"
+            name="link"
             onChange={handleChange}
             type="text"
             value={movie.link}
