@@ -81,7 +81,7 @@ function Home() {
         <br />
         <div className="loginbox blk">
           <h2 className="blk">Please Login: </h2>
-          <br />
+      
           <form className="blk login" onSubmit={handleSubmit}>
             <label>Username:</label>
             <input
@@ -100,13 +100,11 @@ function Home() {
             ></input>
             <br />
             <input className="btn" type="submit" />
-            <br />
           </form>
           {error && <h3 className="error">Error: {error}</h3>}
     
 
           <h3 className="blk">Or:</h3>
-          <br />
           <div className="blk">
             <button className="btn" onClick={() => navigate(`users/new`)}>
               Create an Account
