@@ -3,9 +3,10 @@ class MovieSerializer < ActiveModel::Serializer
   has_many :reviews
 
 
-def short_description
-  "#{object.description[0..200]}..."
-end
+  def short_description
+    object.description.length < 200 ? object.description : "#{object.description[0..200]}..."
+  end
+  
 
 def hours_and_min
   hours = object.runtime / 60

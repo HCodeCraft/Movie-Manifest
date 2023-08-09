@@ -44,7 +44,6 @@ function EditMovie() {
       link: movie.link,
     };
 
-    console.log("editedMovie", editedMovie)
     fetch(`/movies/${params.id}`, {
       method: "PATCH",
       headers: {

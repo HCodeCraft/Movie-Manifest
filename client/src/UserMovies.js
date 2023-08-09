@@ -3,9 +3,10 @@ import { UserContext } from "./context/user";
 import { useNavigate, Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import ReviewCard from "./ReviewCard";
+import NotAuthorized from "./NotAuthorized";
 
 const UserMovies = () => {
-  const { user, loggedIn} = useContext(UserContext);
+  const { user, loggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [userMovies, setUserMovies] = useState([]);
@@ -13,32 +14,32 @@ const UserMovies = () => {
   useEffect(() => {
     const myMovies = user.movies;
     console.log("myMovies", myMovies);
-    console.log("useEffect ran")
-    console.log("user from useEffect", user)
+    console.log("useEffect ran");
+    console.log("user from useEffect", user);
     if (myMovies) {
       setUserMovies(myMovies);
       console.log("userMovies from in useEffect", userMovies);
     }
   }, [user]);
 
+  const movieList =
+    userMovies &&
+    userMovies.map((movie) => (
+      <div className="cardbox" key={movie.id}>
+        <MovieCard
+          title={movie.title}
+          genres={movie.genres}
+          img_url={movie.image_url}
+          link={movie.link}
+          runtime={movie.runtime}
+          short_description={movie.short_description}
+          hours_and_min={movie.hours_and_min}
+          id={movie.id}
+        />
 
-
-  const movieList = userMovies && userMovies.map((movie) => (
-    <div className="cardbox" key={movie.id}>
-      <MovieCard
-        title={movie.title}
-        genres={movie.genres}
-        img_url={movie.image_url}
-        link={movie.link}
-        runtime={movie.runtime}
-        short_description={movie.short_description}
-        hours_and_min={movie.hours_and_min}
-        id={movie.id}
-      />
-
-      <ReviewCard movie_id={movie.id} />
-    </div>
-  ));
+        <ReviewCard movie_id={movie.id} />
+      </div>
+    ));
 
   // console.log("movieList", movieList)
   // console.log("userMovies", userMovies)
@@ -74,24 +75,7 @@ const UserMovies = () => {
       </div>
     </>
   ) : (
-    <>
-      <br />
-      <br />
-      <div className="top_banner">
-        <br />
-        <h1>You're not authorized, please </h1>
-        <br />
-        <Link to={`/`}>
-          <button className="btn btn-accent">Log In</button>{" "}
-        </Link>
-        <br />
-        <h1> or </h1>
-        <br />
-        <Link to={`/users/new`}>
-          <button className="btn btn-accent">Signup</button>{" "}
-        </Link>
-      </div>
-    </>
+    <NotAuthorized />
   );
 };
 

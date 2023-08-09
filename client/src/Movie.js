@@ -3,6 +3,7 @@ import { UserContext } from "./context/user";
 import { useParams, useNavigate, Link, NavLink } from "react-router-dom";
 import StarRating from "./StarRating";
 import BigReviewCard from "./BigReviewCard";
+import NotAuthorized from "./NotAuthorized";
 
 const Movie = () => {
   const params = useParams();
@@ -233,24 +234,7 @@ const Movie = () => {
       </div>
     </>
   ) : (
-    <>
-      <br />
-      <br />
-      <div className="top_banner">
-        <br />
-        <h1>You're not authorized, please </h1>
-        <br />
-        <Link to={`/`}>
-          <button className="btn btn-accent">Log In</button>{" "}
-        </Link>
-        <br />
-        <h1> or </h1>
-        <br />
-        <Link to={`/users/new`}>
-          <button className="btn btn-accent">Signup</button>{" "}
-        </Link>
-      </div>
-    </>
+    <NotAuthorized/>
   );
 };
 

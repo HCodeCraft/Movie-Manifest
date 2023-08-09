@@ -8,6 +8,8 @@ const ReviewCard = ({ movie_id }) => {
     (review) => review.movie_id === movie_id
   );
 
+  const lastReviewIndex = oneReview.length - 1;
+
   return (
     <>
       <div className="smallcard">
@@ -15,7 +17,7 @@ const ReviewCard = ({ movie_id }) => {
           <br />
           <p className="space">My latest rating:</p>
           <div className="stardiv">
-            <p>{oneReview[0] && oneReview[0].stars}</p>
+            <p>{oneReview[lastReviewIndex] && oneReview[lastReviewIndex].stars}</p>
           </div>
         </>
       </div>

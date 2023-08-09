@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { useNavigate, Link } from "react-router-dom";
 import StarRating from "./StarRating";
+import NotAuthorized from "./NotAuthorized";
 
 const NewMovie = () => {
   const { user, loggedIn, movies, addMovie, addReview } =
@@ -145,24 +146,7 @@ const NewMovie = () => {
       </div>
     </div>
   ) : (
-    <>
-      <br />
-      <br />
-      <div className="top_banner">
-        <br />
-        <h1>You're not authorized, please </h1>
-        <br />
-        <Link to={`/`}>
-          <button className="btn btn-accent">Log In</button>{" "}
-        </Link>
-        <br />
-        <h1> or </h1>
-        <br />
-        <Link to={`/users/new`}>
-          <button className="btn btn-accent">Signup</button>{" "}
-        </Link>
-      </div>
-    </>
+    <NotAuthorized/>
   );
 };
 
