@@ -5,44 +5,44 @@ import MovieCard from "./MovieCard";
 import ReviewCard from "./ReviewCard";
 
 const UserMovies = () => {
-  const { user, loggedIn } = useContext(UserContext);
+  const { user, loggedIn} = useContext(UserContext);
   const navigate = useNavigate();
 
-const [userMovies, setUserMovies] = useState([])
+  const [userMovies, setUserMovies] = useState([]);
 
-useEffect(()=> {
-
-  const myMovies = user.movies
-  console.log("myMovies", myMovies)
-  if (myMovies){
-    setUserMovies(myMovies)
-    console.log("userMovies from in useEffect", userMovies)
-  }
-
-},[user])
-
-
-  const movieList = 
-   userMovies.map((movie) => (
-        <div className="cardbox" key={movie.id}>
-          <MovieCard
-            title={movie.title}
-            genres={movie.genres}
-            img_url={movie.image_url}
-            link={movie.link}
-            runtime={movie.runtime}
-            short_description={movie.short_description}
-            hours_and_min={movie.hours_and_min}
-            id={movie.id}
-          />
-
-          <ReviewCard movie_id={movie.id} />
-        </div>
-      )) 
-   ;
+  useEffect(() => {
+    const myMovies = user.movies;
+    console.log("myMovies", myMovies);
+    console.log("useEffect ran")
+    console.log("user from useEffect", user)
+    if (myMovies) {
+      setUserMovies(myMovies);
+      console.log("userMovies from in useEffect", userMovies);
+    }
+  }, [user]);
 
 
 
+  const movieList = userMovies && userMovies.map((movie) => (
+    <div className="cardbox" key={movie.id}>
+      <MovieCard
+        title={movie.title}
+        genres={movie.genres}
+        img_url={movie.image_url}
+        link={movie.link}
+        runtime={movie.runtime}
+        short_description={movie.short_description}
+        hours_and_min={movie.hours_and_min}
+        id={movie.id}
+      />
+
+      <ReviewCard movie_id={movie.id} />
+    </div>
+  ));
+
+  // console.log("movieList", movieList)
+  // console.log("userMovies", userMovies)
+  // console.log("user.movies", user.movies)
   return loggedIn ? (
     <>
       <div className="top_banner">
@@ -50,25 +50,25 @@ useEffect(()=> {
       </div>
       <br />
       <div>
-        {movieList.length > 0 ? (
+        {userMovies?.length > 0 ? (
           <div className="container"> {movieList} </div>
         ) : (
           <div className="nomoviebox">
-          <div className="top_banner blk nomovies">
-            <h2>Looks like your list is empty! </h2>
-            <br />
-            <h2>Feel free to add some movies: </h2>
-            <br />
-            <Link to={"/movies/new"}>
-              <button className="btn">Add New movie</button>
-            </Link>
-            <br />
-            <h2>Or</h2>
-            <br />
-            <Link to={"/movies"}>
-              <button className="btn">Rate Existing Movies</button>
-            </Link>
-          </div>
+            <div className="top_banner blk nomovies">
+              <h2>Looks like your list is empty! </h2>
+              <br />
+              <h2>Feel free to add some movies: </h2>
+              <br />
+              <Link to={"/movies/new"}>
+                <button className="btn">Add New movie</button>
+              </Link>
+              <br />
+              <h2>Or</h2>
+              <br />
+              <Link to={"/movies"}>
+                <button className="btn">Rate Existing Movies</button>
+              </Link>
+            </div>
           </div>
         )}
       </div>

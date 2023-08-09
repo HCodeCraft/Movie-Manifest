@@ -4,15 +4,17 @@ class SessionsController < ApplicationController
     # login
     def create
       user = find_user
+      movies = user.movies
+    
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        render json: user.as_json(only: [:id, :username]) # Include only the necessary attributes
+        render json: user, status: :created
+      
       else
         render json: { error: "Invalid username or password" }, status: :unauthorized
       end
     end
     
-      
 
     # logout
     def destroy

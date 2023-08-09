@@ -7,7 +7,7 @@ function UserProvider({ children }) {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [userMovies, setUserMovies] = useState([])
+  const [userMovies, setUserMovies] = useState([]);
   const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ function UserProvider({ children }) {
       .then((data) => {
         setUser(data);
         if (user && !data.errors) {
-          console.log("data", data);
+          console.log("data from 21", data);
           setLoggedIn(true);
           fetchMovies();
+          setUserMovies(user.movies)
         } else {
           console.log("data", data);
           console.log("data.errors", data.errors);
@@ -28,39 +29,40 @@ function UserProvider({ children }) {
       });
   }, []);
 
-//   useEffect(()=> {
-//     setUserMovies(user.movies)
-//   }, [user])
+  //   useEffect(()=> {
+  //     setUserMovies(user.movies)
+  //   }, [user])
 
   const fetchMovies = () => {
     fetch("/movies")
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
-        // setUserMovies(user.movies)
+        // setUserMovies(user?.movies)
         // console.log("user.movies from in fetch", user.movies)
       });
   };
 
-//   useEffect(() => {
-//     // Fetch the user's movies only if it's not already fetched
-//     if (loggedIn && userMovies.length === 0) {
-//       getUserMovies();
-//     }
-//   }, [loggedIn, userMovies]);
+  //   useEffect(() => {
+  //     // Fetch the user's movies only if it's not already fetched
+  //     if (loggedIn && userMovies.length === 0) {
+  //       getUserMovies();
+  //     }
+  //   }, [loggedIn, userMovies]);
 
-//   const getUserMovies = () => {
-//     setUserMovies(user.movies)
-//   }
+  //   const getUserMovies = () => {
+  //     setUserMovies(user.movies)
+  //   }
 
   const login = (user) => {
     setUser(user);
+    console.log("user.movies login", user.movies)
 
     setLoggedIn(true);
-    setUsername(user.username);
+   setUsername(user.username);
     // setUserMovies(user.movies)
     // console.log("userMovies from login", user.movies)
-    fetchMovies();
+    fetchMovies(user);
   };
 
   const logout = () => {
@@ -212,6 +214,10 @@ function UserProvider({ children }) {
     const updatedUser = { ...user, movies: newUserMovies };
     setUser(updatedUser);
   };
+
+//   console.log("user.movies", user.movies)
+console.log("user in user.js", user)
+
 
   return (
     <UserContext.Provider
