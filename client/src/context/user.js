@@ -37,7 +37,7 @@ function UserProvider({ children }) {
 
     setLoggedIn(true);
     setUsername(user.username);
-    fetchMovies(user);
+    fetchMovies();
   };
 
   const logout = () => {
@@ -51,39 +51,59 @@ function UserProvider({ children }) {
   };
 
   const onAddMovie = (newMovie) => {
+    console.log("newMovie from onAddMovie", newMovie);
     setMovies([...movies, newMovie]);
+    return movies
   };
 
-  const onAddReview = (newReview) => {
+  const onAddReview = (newReview, createdMovie) => {
+    console.log("newReview from onAddReview", newReview);
+    // Update user's reviews
     const updatedUserReviews = [...user.reviews, newReview];
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
-    const oneMovie = movies.find((movie) => movie.id === newReview.movie_id);
-    console.log("initial oneMovie.reviews", oneMovie.reviews);
-    const updatedReviews = [...oneMovie.reviews, newReview];
-    const updatedMovie = { ...oneMovie, reviews: updatedReviews };
-    const updatedMovies = movies.map((movie) =>
-      movie.id === updatedMovie.id ? updatedMovie : movie
-    );
-    setMovies(updatedMovies);
-    // I FEEL LIKE THERES SOME UNNESSISARY CODE HERE, AN ASSOCIATION PROBABLY TOOK
-    // care of some of this state
+
+    console.log("movies from onAddReview", movies)
+    // Find the movie associated with the new review
+    console.log("createdMovie", createdMovie)
+    let oneMovie;
+    if (createdMovie) {
+        oneMovie = createdMovie;
+    } else {
+        oneMovie = movies.find((movie) => movie.id === newReview.movie_id);
+    }
+    
+ 
     if (oneMovie) {
+      // Update movie's reviews Not getting oneMovie when submitting a movie & review tog
+      console.log("oneMovie", oneMovie)
+      const updatedReviews = [...oneMovie.reviews, newReview];
+      const updatedMovie = { ...oneMovie, reviews: updatedReviews };
+      const updatedMovies = movies.map((movie) =>
+        movie.id === updatedMovie.id ? updatedMovie : movie
+      );
+      console.log("updatedMovie", updatedMovie)
+      setMovies(updatedMovies);
+
+      // Check if the movie is already in user's movie list
       const movieAlreadyExists = user.movies.some(
         (movie) => movie.id === oneMovie.id
       );
+
+      // If not, add the movie to user's movie list
       if (!movieAlreadyExists) {
         setUser((prevUser) => ({
           ...prevUser,
           movies: [...prevUser.movies, oneMovie],
         }));
       }
-    }
+    } 
   };
 
   const onDeleteReview = (deletedReview) => {
-    const oneMovie =
-      movies && movies.find((movie) => movie.id === deletedReview.movie_id);
+    const oneMovie = movies.find(
+      (movie) => movie.id === deletedReview.movie_id
+    );
     const newMovieReviews = oneMovie.reviews.filter(
       (review) => review.id !== deletedReview.id
     );
@@ -111,16 +131,44 @@ function UserProvider({ children }) {
   };
 
   const addMovie = (newMovie) => {
-    fetch("/movies", {
+    const requestBody = {
+      ...newMovie,
+    };
+
+    if (newMovie.reviews) {
+      requestBody.reviews = newMovie.reviews;
+    }
+
+    return fetch("/movies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newMovie),
+      body: JSON.stringify(requestBody),
     })
       .then((res) => res.json())
       .then((data) => {
         onAddMovie(data);
+    
+        return data;
+      });
+  };
+
+  const addReview = (newReview, createdMovie) => {
+    fetch(`/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReview),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        onAddReview(data, createdMovie);
+        console.log("Here's the data from addReview", data)
+        console.log("That's being sent to onAddReview")
+        // I need to update movie state to add the review
+  
       });
   };
 
@@ -133,7 +181,7 @@ function UserProvider({ children }) {
       }
     });
     setMovies(updatedMovies);
-  
+
     // need to update user.movies too
     const userUpdatedMovies = user.movies.map((movie) => {
       if (movie.id === editedMovie.id) {
@@ -144,8 +192,6 @@ function UserProvider({ children }) {
     });
     setUser({ ...user, movies: userUpdatedMovies });
   };
-    
-  
 
   /// need to give this fuction the id
   const onEditReview = (editedReview) => {
@@ -177,9 +223,6 @@ function UserProvider({ children }) {
     setUser(updatedUser);
   };
 
-  //   console.log("user.movies", user.movies)
-  console.log("user in user.js", user);
-
   return (
     <UserContext.Provider
       value={{
@@ -190,6 +233,7 @@ function UserProvider({ children }) {
         loggedIn,
         movies,
         addMovie,
+        addReview,
         onDeleteMovie,
         onDeleteReview,
         onEditReview,

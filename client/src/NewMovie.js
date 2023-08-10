@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "./context/user";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import StarRating from "./StarRating";
 import NotAuthorized from "./NotAuthorized";
 
 const NewMovie = () => {
-  const { user, loggedIn, movies, addMovie, addReview } =
+  const { user, movies, loggedIn, addMovie, addReview } =
     useContext(UserContext);
 
   const [movie, setMovie] = useState({
@@ -43,29 +43,47 @@ const NewMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await addMovie({
-      title: movie.title,
-      image_url: movie.image_url,
-      genres: movie.genres,
-      description: movie.description,
-      runtime: movie.runtime,
-      link: movie.link,
-    });
-
-    // if (review.watched) {
-    //   addReview({
-    //     reviewtext: review.reviewtext,
-    //     watched: review.watched,
-    //     rating: review.rating,
-    //     user_id: user.id,
-    //     movie_id: movies.length - 1,
-    // })
-
-    // }
-    console.log("review.watched", review.watched);
+  
+    if (review.watched) {
+      const newMovieWithReview = {
+        title: movie.title,
+        image_url: movie.image_url,
+        genres: movie.genres,
+        description: movie.description,
+        runtime: movie.runtime,
+        link: movie.link,
+        reviews: [
+          {
+            reviewtext: review.reviewtext,
+            watched: review.watched,
+            rating: review.rating,
+            user_id: user.id,
+            movie_id: null, // Set to null for now
+          },
+        ],
+      };
+      const createdMovie = await addMovie(newMovieWithReview);
+      console.log("createdMovie", createdMovie);
+      newMovieWithReview.reviews[0].movie_id = createdMovie.id;
+      console.log("newMovieWithReview.reviews[0]", newMovieWithReview.reviews[0]);
+    // Set the movie_id using the created movie's ID
+    await addReview(newMovieWithReview.reviews[0], createdMovie)
+    } else {
+      const newMovie = {
+        title: movie.title,
+        image_url: movie.image_url,
+        genres: movie.genres,
+        description: movie.description,
+        runtime: movie.runtime,
+        link: movie.link,
+      };
+      await addMovie(newMovie);
+    }
+  
     navigate(`/movies`);
   };
+  
+  
 
   const changeRating = (num) => {
     setReview({ ...review, rating: num });
@@ -81,7 +99,7 @@ const NewMovie = () => {
         <img
           className="newimg"
           src="https://i.pinimg.com/736x/76/5c/1b/765c1b4b1ef541278400a4564d437983--movies-at-nostalgia.jpg"
-        />
+         alt="a shelf with dvds"/>
         <br />
         <br />
 

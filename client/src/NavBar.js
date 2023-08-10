@@ -18,8 +18,6 @@ const NavBar = () => {
     });
   };
 
-  // I need to import the user id in here for linking to
-  // "My Movies/Reviews" and to display the User's username
   if (loggedIn) {
     return (
       <>

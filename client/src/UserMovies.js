@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./context/user";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import ReviewCard from "./ReviewCard";
 import NotAuthorized from "./NotAuthorized";
 
 const UserMovies = () => {
   const { user, loggedIn } = useContext(UserContext);
-  const navigate = useNavigate();
+
 
   const [userMovies, setUserMovies] = useState([]);
 
@@ -41,9 +41,7 @@ const UserMovies = () => {
       </div>
     ));
 
-  // console.log("movieList", movieList)
-  // console.log("userMovies", userMovies)
-  // console.log("user.movies", user.movies)
+
   return loggedIn ? (
     <>
       <div className="top_banner">

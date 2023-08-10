@@ -355,12 +355,16 @@ input[type="radio"] {
 
 .newform {
   border: 2px solid #8b4513;
-  width: 30%
+  width: 30%;
 }
 
 .error {
   border: 2px solid red;
   padding: 6px;
+  list-style-type: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2em;
+  margin: 5px;
 }
 
 .nomovies {

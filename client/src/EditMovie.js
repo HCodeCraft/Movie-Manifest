@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 function EditMovie() {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onEditMovie } = useContext(UserContext);
+  const { loggedIn, movies, onEditMovie } = useContext(UserContext);
 
   const [movie, setMovie] = useState({
     title: "",
@@ -75,7 +75,7 @@ function EditMovie() {
           <h1 className="title">Edit {movie.title}</h1>
         </div>
         <br />
-        <img src={movie.image_url} className="desimage" />
+        <img src={movie.image_url} className="desimage" alt="image of movie"/>
         <br />
         <br />
         <form className="blk" onSubmit={handleSubmit}>

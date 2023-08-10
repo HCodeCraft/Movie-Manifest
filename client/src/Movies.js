@@ -6,13 +6,10 @@ import NotAuthorized from "./NotAuthorized";
 const Movies = () => {
   const { loggedIn, movies } = useContext(UserContext);
 
-  console.log("movies", movies);
-  console.log("loggedIn", loggedIn);
-
   const movieList =
     movies.length > 1 &&
     movies.map((movie) => (
-      <div>
+      <div key={movie.id} >
         {" "}
         <MovieCard
           key={movie.id}
@@ -36,7 +33,7 @@ const Movies = () => {
       <div className="container">{movieList}</div>
     </div>
   ) : (
-    <NotAuthorized/>
+    <NotAuthorized />
   );
 };
 

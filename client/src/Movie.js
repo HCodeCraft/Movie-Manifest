@@ -8,11 +8,10 @@ import NotAuthorized from "./NotAuthorized";
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview } =
+  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview, addReview } =
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
-
   const [movie, setMovie] = useState({
     title: "",
     image_url: "",
@@ -56,23 +55,12 @@ const Movie = () => {
       movie_id: params.id,
     };
 
-    fetch(`/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newReview),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        onAddReview(data, movie);
+    addReview(newReview)
 
-        setReviewForm(false);
-        // I need to update movie state to add the review
-        console.log("It was added!");
-        console.log("Here's the data", data);
-      });
+    setReviewForm(false);
+
   };
+
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
@@ -158,7 +146,8 @@ const Movie = () => {
         <h3 className="blk">{movie.genres}</h3>
         <br />
         <h4 className="blk">
-          Runtime: {movie.runtime} mins {movie.runtime > 59 ? `(${movie.hours_and_min})` : null}
+          Runtime: {movie.runtime} mins{" "}
+          {movie.runtime > 59 ? `(${movie.hours_and_min})` : null}
         </h4>
         <br />
         <div className="desdiv">
@@ -176,7 +165,7 @@ const Movie = () => {
 
           <button
             className="btn btn-primary space"
-            onClick={() => handleDeleteMovie(params.id)}
+            onClick={() => handleDeleteMovie()}
           >
             Delete Movie
           </button>
@@ -234,7 +223,7 @@ const Movie = () => {
       </div>
     </>
   ) : (
-    <NotAuthorized/>
+    <NotAuthorized />
   );
 };
 
