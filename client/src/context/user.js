@@ -38,6 +38,7 @@ function UserProvider({ children }) {
     setLoggedIn(true);
     setUsername(user.username);
     fetchMovies();
+    console.log("movies were fetched", movies)
   };
 
   const logout = () => {

@@ -62,12 +62,11 @@ const NavBar = () => {
     );
   } else {
     return (
-      <>
-        <br />
-        <div className="bannerbox">
-          <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
-        </div>
-      </>
+      <div className="topdiv">
+      <div className="bannerbox">
+        <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
+      </div>
+      </div>
     );
   }
 };

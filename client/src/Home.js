@@ -22,7 +22,7 @@ function Home() {
       .then((res) => res.json())
       .then((user) => {
         if (user.error) {
-          setError(user.error);
+          setError("Invalid Username or Password");
           setUsername("");
           setPassword("");
         } else {
@@ -32,11 +32,7 @@ function Home() {
       });
   };
 
-  useEffect(() => {
-    console.log("user", user);
-  }, [user, loggedIn]);
 
-  console.log("loggedIn", loggedIn);
 
   if (loggedIn) {
     return (
