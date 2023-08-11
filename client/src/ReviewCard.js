@@ -17,7 +17,9 @@ const ReviewCard = ({ movie_id }) => {
           <br />
           <p className="space">My latest rating:</p>
           <div className="stardiv">
-            <p>{oneReview[lastReviewIndex] && oneReview[lastReviewIndex].stars}</p>
+            <p>
+              {oneReview[lastReviewIndex] && oneReview[lastReviewIndex].stars}
+            </p>
           </div>
         </>
       </div>

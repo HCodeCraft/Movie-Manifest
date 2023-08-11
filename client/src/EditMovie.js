@@ -54,7 +54,6 @@ function EditMovie() {
       .then((res) => res.json())
       .then((data) => {
         onEditMovie(data);
-        
         setMovie({
           title: "",
           image_url: "",
@@ -75,7 +74,7 @@ function EditMovie() {
           <h1 className="title">Edit {movie.title}</h1>
         </div>
         <br />
-        <img src={movie.image_url} className="desimage" alt="image of movie"/>
+        <img src={movie.image_url} className="desimage" alt="image of movie" />
         <br />
         <br />
         <form className="blk" onSubmit={handleSubmit}>

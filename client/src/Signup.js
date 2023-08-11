@@ -33,7 +33,9 @@ const Signup = () => {
           setPasswordConfirmation("");
 
           const errorLis = user.errors.map((error) => (
-            <li className="error" key={error}>{error}</li>
+            <li className="error" key={error}>
+              {error}
+            </li>
           ));
           setErrorsList(errorLis);
         }

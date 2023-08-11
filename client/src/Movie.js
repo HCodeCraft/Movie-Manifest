@@ -30,7 +30,6 @@ const Movie = () => {
     rating: 0,
   });
 
-
   const handleReviewChange = (e) => {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -54,12 +53,10 @@ const Movie = () => {
       movie_id: params.id,
     };
 
-    addReview(newReview)
+    addReview(newReview);
 
     setReviewForm(false);
-
   };
-
 
   const handleEditSubmit = (e) => {
     e.preventDefault();

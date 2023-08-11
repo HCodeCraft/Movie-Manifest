@@ -9,7 +9,7 @@ const Movies = () => {
   const movieList =
     movies.length > 1 &&
     movies.map((movie) => (
-      <div key={movie.id} >
+      <div key={movie.id}>
         {" "}
         <MovieCard
           key={movie.id}

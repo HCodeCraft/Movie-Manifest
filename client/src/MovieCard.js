@@ -16,7 +16,7 @@ const MovieCard = ({
   return (
     <>
       <div className="card">
-        <img className="card-image" src={img_url} alt="small image of movie"/>
+        <img className="card-image" src={img_url} alt="small image of movie" />
         <h2 className="movtitle">{title}</h2>
         <h3 className="genres"> {genres}</h3>
         <h4>

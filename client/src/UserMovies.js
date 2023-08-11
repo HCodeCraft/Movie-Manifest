@@ -8,7 +8,6 @@ import NotAuthorized from "./NotAuthorized";
 const UserMovies = () => {
   const { user, loggedIn } = useContext(UserContext);
 
-
   const [userMovies, setUserMovies] = useState([]);
 
   useEffect(() => {
@@ -40,7 +39,6 @@ const UserMovies = () => {
         <ReviewCard movie_id={movie.id} />
       </div>
     ));
-
 
   return loggedIn ? (
     <>

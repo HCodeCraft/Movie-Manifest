@@ -8,7 +8,7 @@ function UserProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [username, setUsername] = useState("");
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
@@ -34,7 +34,6 @@ function UserProvider({ children }) {
 
   const login = (user) => {
     setUser(user);
-    console.log("user.movies login", user.movies);
 
     setLoggedIn(true);
     setUsername(user.username);
@@ -56,34 +55,28 @@ function UserProvider({ children }) {
     setMovies([...movies, newMovie]);
   };
 
-
-
   const onAddReview = (newReview, createdMovie) => {
-    console.log("newReview from onAddReview", newReview);
-  
     // Update user's reviews
     const updatedUserReviews = [...user.reviews, newReview];
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
-  
+
     console.log("movies from onAddReview", movies);
     // Find the movie associated with the new review
     console.log("createdMovie", createdMovie);
 
-
-  
     if (createdMovie) {
       // Include the newReview in the createdMovie
       const updatedMovie = {
         ...createdMovie,
         reviews: [...createdMovie.reviews, newReview],
       };
-  
+
       // Update the movies array with the updatedMovie
       const updatedMovies = [...movies, updatedMovie];
       console.log("updatedMovies with createdMovie", updatedMovies);
       setMovies(updatedMovies);
-  
+
       // Add the movie to user's movie list if it's not there already
       const movieAlreadyExists = user.movies.some(
         (movie) => movie.id === createdMovie.id
@@ -95,7 +88,6 @@ function UserProvider({ children }) {
         }));
       }
     } else {
-      // Find the existing movie and update it with the new review
       const oneMovieIndex = movies.findIndex(
         (movie) => movie.id === newReview.movie_id
       );
@@ -105,17 +97,18 @@ function UserProvider({ children }) {
         const updatedReviews = [...oneMovie.reviews, newReview];
         const updatedMovie = { ...oneMovie, reviews: updatedReviews };
         updatedMovies[oneMovieIndex] = updatedMovie;
-        console.log("updatedMovies with updated review", updatedMovies);
+
         setMovies(updatedMovies);
       }
 
-    const existingMovie = movies.find((movie) => movie.id === newReview.movie_id)
+      const existingMovie = movies.find(
+        (movie) => movie.id === newReview.movie_id
+      );
 
       const movieAlreadyExists = user.movies.some(
         (movie) => movie.id === newReview.movie_id
       );
 
-      // If not, add the movie to user's movie list
       if (!movieAlreadyExists) {
         setUser((prevUser) => ({
           ...prevUser,
@@ -124,7 +117,6 @@ function UserProvider({ children }) {
       }
     }
   };
-
 
   const onDeleteReview = (deletedReview) => {
     const oneMovie = movies.find(
@@ -175,9 +167,9 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddMovie(data);
-        if (data.errors)
-        {setErrors(data.errors)}
-        // return data;
+        if (data.errors) {
+          setErrors(data.errors);
+        }
       });
   };
 
@@ -192,8 +184,9 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddReview(data, createdMovie);
-        if (data.errors)
-        {setErrors(...errors, data.errors)}
+        if (data.errors) {
+          setErrors(...errors, data.errors);
+        }
       });
   };
 
@@ -207,7 +200,6 @@ function UserProvider({ children }) {
     });
     setMovies(updatedMovies);
 
-    // need to update user.movies too
     const userUpdatedMovies = user.movies.map((movie) => {
       if (movie.id === editedMovie.id) {
         return editedMovie;
@@ -264,7 +256,7 @@ function UserProvider({ children }) {
         onEditReview,
         onEditMovie,
         onAddReview,
-        errors
+        errors,
       }}
     >
       {children}
