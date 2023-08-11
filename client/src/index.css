@@ -367,6 +367,10 @@ input[type="radio"] {
   margin: 5px;
 }
 
+li {
+  list-style-type: none;
+}
+
 .nomovies {
   width: 30%;
   border: 2px solid #8b4513;

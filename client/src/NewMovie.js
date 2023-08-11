@@ -5,8 +5,9 @@ import StarRating from "./StarRating";
 import NotAuthorized from "./NotAuthorized";
 
 const NewMovie = () => {
-  const { user, movies, loggedIn, addMovie, addReview } =
+  const { user, loggedIn, addMovie, addReview, errors } =
     useContext(UserContext);
+
 
   const [movie, setMovie] = useState({
     title: "",
@@ -22,6 +23,8 @@ const NewMovie = () => {
     watched: false,
     rating: null,
   });
+
+  
 
   const navigate = useNavigate();
 
@@ -43,45 +46,46 @@ const NewMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (review.watched) {
-      const newMovieWithReview = {
-        title: movie.title,
-        image_url: movie.image_url,
-        genres: movie.genres,
-        description: movie.description,
-        runtime: movie.runtime,
-        link: movie.link,
-        reviews: [
-          {
-            reviewtext: review.reviewtext,
-            watched: review.watched,
-            rating: review.rating,
-            user_id: user.id,
-            movie_id: null, // Set to null for now
-          },
-        ],
-      };
-      const createdMovie = await addMovie(newMovieWithReview);
-      console.log("createdMovie", createdMovie);
-      newMovieWithReview.reviews[0].movie_id = createdMovie.id;
-      console.log("newMovieWithReview.reviews[0]", newMovieWithReview.reviews[0]);
-    // Set the movie_id using the created movie's ID
-    await addReview(newMovieWithReview.reviews[0], createdMovie)
-    } else {
-      const newMovie = {
-        title: movie.title,
-        image_url: movie.image_url,
-        genres: movie.genres,
-        description: movie.description,
-        runtime: movie.runtime,
-        link: movie.link,
-      };
-      await addMovie(newMovie);
-    }
-  
-    navigate(`/movies`);
+
+
+    
+      if (review.watched) {
+        const newMovieWithReview = {
+          title: movie.title,
+          image_url: movie.image_url,
+          genres: movie.genres,
+          description: movie.description,
+          runtime: movie.runtime,
+          link: movie.link,
+          reviews: [
+            {
+              reviewtext: review.reviewtext,
+              watched: review.watched,
+              rating: review.rating,
+              user_id: user.id,
+              movie_id: null, // Set to null for now
+            },
+          ],
+        };
+        const createdMovie = await addMovie(newMovieWithReview);
+        newMovieWithReview.reviews[0].movie_id = createdMovie.id 
+        await addReview(newMovieWithReview.reviews[0], createdMovie);
+      } else {
+        const newMovie = {
+          title: movie.title,
+          image_url: movie.image_url,
+          genres: movie.genres,
+          description: movie.description,
+          runtime: movie.runtime,
+          link: movie.link,
+        };
+        await addMovie(newMovie);
+      }
+ 
+      errors ? console.log("errors", errors) : navigate("/movies");
+
   };
+  
   
   
 
@@ -156,6 +160,8 @@ const NewMovie = () => {
               <StarRating rating={review.rating} changeRating={changeRating} />
             </>
           )}
+          { errors.length > 0 ? <h3 className="error">Error: <ul>{errors.map((error) => <li key={error}>{error}</li>)}</ul></h3> : null}
+          
           <br />
           <input className="btn" type="submit" />
           <br />

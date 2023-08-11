@@ -8,7 +8,7 @@ import NotAuthorized from "./NotAuthorized";
 const Movie = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { user, loggedIn, movies, onDeleteMovie, onAddReview, onEditReview, addReview } =
+  const { user, loggedIn, movies, onDeleteMovie, onEditReview, addReview } =
     useContext(UserContext);
 
   const [reviewForm, setReviewForm] = useState(false);
@@ -30,7 +30,6 @@ const Movie = () => {
     rating: 0,
   });
 
-  // const [additionalForm, setAdditionalForm] = useState(false);
 
   const handleReviewChange = (e) => {
     const value =
@@ -114,7 +113,6 @@ const Movie = () => {
     console.log(selectedReview);
     setReviewForm(true);
     setReview(selectedReview);
-    // I want this to set the review fields to the selected review
   };
 
   const handleAdditionalFormClick = () => {
