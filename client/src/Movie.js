@@ -77,8 +77,6 @@ const Movie = () => {
       .then((res) => res.json())
       .then((data) => {
         onEditReview(data);
-        console.log("It edited!");
-        console.log("Here's the data", data);
         setReviewForm(false);
       });
   };

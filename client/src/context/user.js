@@ -38,7 +38,7 @@ function UserProvider({ children }) {
     setLoggedIn(true);
     setUsername(user.username);
     fetchMovies();
-    console.log("movies were fetched", movies)
+    console.log("movies were fetched", movies);
   };
 
   const logout = () => {
@@ -52,7 +52,6 @@ function UserProvider({ children }) {
   };
 
   const onAddMovie = (newMovie) => {
-    console.log("newMovie from onAddMovie", newMovie);
     setMovies([...movies, newMovie]);
   };
 
@@ -153,11 +152,11 @@ function UserProvider({ children }) {
     const requestBody = {
       ...newMovie,
     };
-
+  
     if (newMovie.reviews) {
       requestBody.reviews = newMovie.reviews;
     }
-
+  
     return fetch("/movies", {
       method: "POST",
       headers: {
@@ -165,14 +164,24 @@ function UserProvider({ children }) {
       },
       body: JSON.stringify(requestBody),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        onAddMovie(data);
-        if (data.errors) {
-          setErrors(data.errors);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Movie creation failed");
         }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Response data from addMovie", data);
+        onAddMovie(data);
+        return data;
+      })
+      .catch((error) => {
+        console.error("Error adding movie:", error);
+        // You can also setErrors here if needed
+        throw error; // Re-throw the error to be handled further up the chain
       });
   };
+  
 
   const addReview = (newReview, createdMovie) => {
     fetch(`/reviews`, {
@@ -185,9 +194,12 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddReview(data, createdMovie);
-        if (data.errors) {
-          setErrors(...errors, data.errors);
-        }
+      
+        // if (data.error) {
+        //   setErrors(...errors, data.error);
+        //   console.log("errorss from addREview", errors)
+        // }
+
       });
   };
 
@@ -240,6 +252,7 @@ function UserProvider({ children }) {
     const updatedUser = { ...user, movies: newUserMovies };
     setUser(updatedUser);
   };
+
 
   return (
     <UserContext.Provider

@@ -5,7 +5,7 @@ import StarRating from "./StarRating";
 import NotAuthorized from "./NotAuthorized";
 
 const NewMovie = () => {
-  const { user, loggedIn, addMovie, addReview, errors } =
+  const { user, loggedIn, movies, addMovie, addReview, errors } =
     useContext(UserContext);
 
   const [movie, setMovie] = useState({
@@ -58,12 +58,19 @@ const NewMovie = () => {
             watched: review.watched,
             rating: review.rating,
             user_id: user.id,
-            movie_id: null,
+            movie_id: null, // Set to null for now
           },
         ],
       };
       const createdMovie = await addMovie(newMovieWithReview);
+      console.log("newMovieWithReview", newMovieWithReview)
+      console.log("createdMovie", createdMovie);
       newMovieWithReview.reviews[0].movie_id = createdMovie.id;
+      console.log(
+        "newMovieWithReview.reviews[0]",
+        newMovieWithReview.reviews[0]
+      );
+      // Set the movie_id using the created movie's ID
       await addReview(newMovieWithReview.reviews[0], createdMovie);
     } else {
       const newMovie = {
@@ -77,7 +84,7 @@ const NewMovie = () => {
       await addMovie(newMovie);
     }
 
-    errors ? console.log("errors", errors) : navigate("/movies");
+    errors.length === 0 ? navigate(`/movies`) : console.log("errors", errors);
   };
 
   const changeRating = (num) => {

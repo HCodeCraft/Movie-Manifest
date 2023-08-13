@@ -61,7 +61,7 @@ end
 
 
 def movie_params
-    params.require(:movie).permit(:title, :image_url, :description, :runtime, :link, :genres, reviews_attributes: [:reviewtext, :watched, :rating, :movie_id] )
+    params.require(:movie).permit(:title, :image_url, :description, :runtime, :link, :genres, :id, reviews_attributes: [:reviewtext, :watched, :rating, :movie_id] )
   end
   
 
