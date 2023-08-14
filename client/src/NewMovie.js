@@ -70,7 +70,6 @@ const NewMovie = () => {
         "newMovieWithReview.reviews[0]",
         newMovieWithReview.reviews[0]
       );
-      // Set the movie_id using the created movie's ID
       await addReview(newMovieWithReview.reviews[0], createdMovie);
     } else {
       const newMovie = {
@@ -134,7 +133,6 @@ const NewMovie = () => {
           />{" "}
           <br />
           <br />
-          {/* Change to textbox ^ */}
           <label>Runtime (in minutes): </label>
           <input name="runtime" onChange={handleChange} type="number" /> <br />
           <br />
