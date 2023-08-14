@@ -61,9 +61,6 @@ function UserProvider({ children }) {
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
 
-    console.log("movies from onAddReview", movies);
-    // Find the movie associated with the new review
-    console.log("createdMovie", createdMovie);
 
     if (createdMovie) {
       // Include the newReview in the createdMovie
