@@ -63,7 +63,7 @@ const NewMovie = () => {
         ],
       };
       const createdMovie = await addMovie(newMovieWithReview);
-      console.log("newMovieWithReview", newMovieWithReview)
+      console.log("newMovieWithReview", newMovieWithReview);
       console.log("createdMovie", createdMovie);
       newMovieWithReview.reviews[0].movie_id = createdMovie.id;
       console.log(
@@ -83,7 +83,15 @@ const NewMovie = () => {
       };
       await addMovie(newMovie);
     }
-
+    setMovie({
+      title: "",
+      image_url: "",
+      genres: "",
+      description: "",
+      runtime: 0,
+      link: "",
+    });
+    setReview({ reviewtext: "", watched: false, rating: null });
     errors.length === 0 ? navigate(`/movies`) : console.log("errors", errors);
   };
 
