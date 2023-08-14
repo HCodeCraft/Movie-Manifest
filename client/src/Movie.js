@@ -86,7 +86,7 @@ const Movie = () => {
       method: "DELETE",
     }).then(() => {
       onDeleteMovie(movie);
-      navigate(`/users/movies`);
+      navigate(`/movies`);
     });
   };
 

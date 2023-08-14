@@ -166,18 +166,21 @@ function UserProvider({ children }) {
     })
       .then((res) => {
         if (!res.ok) {
+            console.log("res", res)
           throw new Error("Movie creation failed");
+          
         }
         return res.json();
       })
       .then((data) => {
         console.log("Response data from addMovie", data);
         onAddMovie(data);
+        setErrors([])
         return data;
       })
       .catch((error) => {
         console.error("Error adding movie:", error);
-        // You can also setErrors here if needed
+        setErrors(error)
         throw error; // Re-throw the error to be handled further up the chain
       });
   };
@@ -194,6 +197,7 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddReview(data, createdMovie);
+        setErrors([])
       
         // if (data.error) {
         //   setErrors(...errors, data.error);

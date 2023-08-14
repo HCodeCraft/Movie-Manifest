@@ -5,7 +5,7 @@ import StarRating from "./StarRating";
 import NotAuthorized from "./NotAuthorized";
 
 const NewMovie = () => {
-  const { user, loggedIn, movies, addMovie, addReview, errors } =
+  const { user, loggedIn, addMovie, addReview, errors } =
     useContext(UserContext);
 
   const [movie, setMovie] = useState({
