@@ -22,5 +22,4 @@ class SessionsController < ApplicationController
         head :no_content
     end
 
-    #The session hash is where the user is stored
 end

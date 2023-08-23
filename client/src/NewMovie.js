@@ -41,6 +41,7 @@ const NewMovie = () => {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,18 +59,12 @@ const NewMovie = () => {
             watched: review.watched,
             rating: review.rating,
             user_id: user.id,
-            movie_id: null, // Set to null for now
+            movie_id: null, // Set to null for now because it needs to be created before set
           },
         ],
       };
       const createdMovie = await addMovie(newMovieWithReview);
-      console.log("newMovieWithReview", newMovieWithReview);
-      console.log("createdMovie", createdMovie);
       newMovieWithReview.reviews[0].movie_id = createdMovie.id;
-      console.log(
-        "newMovieWithReview.reviews[0]",
-        newMovieWithReview.reviews[0]
-      );
       await addReview(newMovieWithReview.reviews[0], createdMovie);
     } else {
       const newMovie = {

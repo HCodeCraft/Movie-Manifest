@@ -8,21 +8,17 @@ class MoviesController < ApplicationController
       end
 
 
-def create
-    movie = Movie.create!(movie_params)
-    
-    if params[:reviews_attributes]
-      params[:reviews_attributes].each do |review_attributes|
-        review = movie.reviews.create!(review_attributes.merge(user_id: @current_user.id))
+      def create
+        movie = Movie.create!(movie_params)
+        
+        if params[:review_attributes] 
+          review_attributes = params[:review_attributes].merge(user_id: @current_user.id)
+          review = movie.reviews.create!(review_attributes)
+        end
+      
+        render json: movie, status: :created
       end
-    end
-  
-    render json: movie, status: :created
-  end
-
-#   I think the blank review is being created by the current_user.movies.create! that creates a blank review because user had movies through reviews
-  
-
+      
 
 def show
     movie = Movie.find_by(id: params[:id])
