@@ -58,7 +58,7 @@ const NewMovie = () => {
             watched: review.watched,
             rating: review.rating,
             user_id: user.id,
-            movie_id: null, // Set to null for now because it needs to be created before set
+            movie_id: null, 
           },
         ],
       };

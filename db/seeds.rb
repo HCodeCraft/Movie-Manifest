@@ -6,29 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# List.create([
-#     {title: "Horror Movies",
-#     description: "Horror movies to be watched/reviewed",
-#     image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.f0qq_0Z3Abe27ibVrBcZAwHaFj%26pid%3DApi&f=1&ipt=4f32b951c234d90753a06066124c7ad52a8c4823bd98af16c95cf9b2bcdc6283&ipo=images",
-#     user_id: 1
-# },
-# {title: "Documentaries",
-#     description: "Documentaries I want to watch and review",
-#     image_url: "https://cdni.rt.com/files/2015.12/article/5661d7dac3618841498b45d4.png",
-#     user_id: 2}])
 
 # User.create!([{
-#     username: "Lem",
-#     password: "Lem"
+#   username: "Lem",
+#   password: "Lem",
+
+# },
+#               {
+#   username: "Hanna",
+#   password: "Hanna",
+
+# },
+#               {
+#   username: "Linda",
+#   password: "Linda",
 
 # }])
 
-#     username: "Hanna",
-#     password_digest: "Beans"
-# },
-# {
-#     username: "Linda",
-#     password_digest: "Bananas"
+
 # Movie.create!([
 #     {
 #       title: "May",
@@ -80,55 +75,36 @@
 #     }
 #   ])
 
-    # Review.create!([{
-    #     review: "I liked it. It was nice seeing a socially awkward young woman main character. The death scenes were pretty corny and took me out of immersion though. It seems like the directors were making the kill scenes kind of rediculous on purpose though. It was a sad movie. I'm rating it 4 stars instead of 3 because it is an unusual horror movie (premise etc)",
-    #     watched: true,
-    #     rating: 4,
-    # movie_id: 1,
-    # user_id: 1
-    # }, {
-    #     review: "I liked it a lot, definitely one of my favorite horror movies. I love that it had an all female cast. There were some very scary moments. Body horror etc.",
-    #     watched: true,
-    #     rating: 5,
-    #     user_id: 1,
-    #     movie_id: 2
+# Review.create!([{
+#     reviewtext: "I liked it. It was nice seeing a socially awkward young woman main character. The death scenes were pretty corny and took me out of immersion though. It seems like the directors were making the kill scenes kind of rediculous on purpose though. It was a sad movie. I'm rating it 4 stars instead of 3 because it is an unusual horror movie (premise etc)",
+#     watched: true,
+#     rating: 4,
+# movie_id: 1,
+# user_id: 1
+# }, {
+#     reviewtext: "I liked it a lot, definitely one of my favorite horror movies. I love that it had an all female cast. There were some very scary moments. Body horror etc.",
+#     watched: true,
+#     rating: 5,
+#     user_id: 1,
+#     movie_id: 2
 
-    # }])
+# }])
 
-    # Movie.create!([
-    # {
-    #   title: "Princess Mononoke",
-    #   image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpisces.bbystatic.com%2Fimage2%2FBestBuy_US%2Fimages%2Fproducts%2F6111%2F6111356_so.jpg&f=1&nofb=1&ipt=a1194845ad571136b3061826fea38e0f39c698baa5630f98ae8f99f471650178&ipo=images",
-    #   genres: "Fantasy",
-    #   description: "While protecting his village from rampaging boar-god/demon, a confident young warrior, Ashitaka, is stricken by a deadly curse. To save his life, he must journey to the forests of the west. Once there, he's embroiled in a fierce campaign that humans were waging on the forest. The ambitious Lady Eboshi and her loyal clan use their guns against the gods of the forest and a brave young woman, Princess Mononoke, who was raised by a wolf-god. Ashitaka sees the good in both sides and tries to stem the flood of blood. This is met by animosity by both sides as they each see him as supporting the enemy.—Christopher Taguchi",
-    #   runtime: 134,
-    #   link: "https://lookmovie2.to/movies/view/0119698-princess-mononoke-1997",
-    # }, {
-    #     title: "D.E.B.S",
-    #     image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.jeded.com%2Fi%2Fdebs.11310.jpg&f=1&nofb=1&ipt=30e2635c0b8493014af940ea25af0fe62981cc59c9002c7a78f92c9d540042a5&ipo=images",
-    #     genres: "Action, Comedy, Romance",
-    #     description: "Recruited by the U.S. government for their unique ability to lie, cheat and fight, Amy, Max, Janet and Dominique join an underground academy of secret agents known only as D.E.B.S. These crime fighting hotties set out to save the world and keep their lipstick perfectly applied while doing so. Now the girls must combine their skills for their most important mission- to capture vexing vixen Lucy Diamond, the deadliest criminal the world has ever known. When D.E.B.S. star player, Amy, falls for Lucy, chaos erupts and the D.E.B.S. loyalty is put to the test.—D.E.B.S. Official Site",
-    #     runtime: 91,
-    #     link: "https://lookmovie2.to/movies/view/debs-2004",
-    # }
-    # ])
+# Movie.create!([
+# {
+#   title: "Princess Mononoke",
+#   image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpisces.bbystatic.com%2Fimage2%2FBestBuy_US%2Fimages%2Fproducts%2F6111%2F6111356_so.jpg&f=1&nofb=1&ipt=a1194845ad571136b3061826fea38e0f39c698baa5630f98ae8f99f471650178&ipo=images",
+#   genres: "Fantasy",
+#   description: "While protecting his village from rampaging boar-god/demon, a confident young warrior, Ashitaka, is stricken by a deadly curse. To save his life, he must journey to the forests of the west. Once there, he's embroiled in a fierce campaign that humans were waging on the forest. The ambitious Lady Eboshi and her loyal clan use their guns against the gods of the forest and a brave young woman, Princess Mononoke, who was raised by a wolf-god. Ashitaka sees the good in both sides and tries to stem the flood of blood. This is met by animosity by both sides as they each see him as supporting the enemy.—Christopher Taguchi",
+#   runtime: 134,
+#   link: "https://lookmovie2.to/movies/view/0119698-princess-mononoke-1997",
+# }, {
+#     title: "D.E.B.S",
+#     image_url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.jeded.com%2Fi%2Fdebs.11310.jpg&f=1&nofb=1&ipt=30e2635c0b8493014af940ea25af0fe62981cc59c9002c7a78f92c9d540042a5&ipo=images",
+#     genres: "Action, Comedy, Romance",
+#     description: "Recruited by the U.S. government for their unique ability to lie, cheat and fight, Amy, Max, Janet and Dominique join an underground academy of secret agents known only as D.E.B.S. These crime fighting hotties set out to save the world and keep their lipstick perfectly applied while doing so. Now the girls must combine their skills for their most important mission- to capture vexing vixen Lucy Diamond, the deadliest criminal the world has ever known. When D.E.B.S. star player, Amy, falls for Lucy, chaos erupts and the D.E.B.S. loyalty is put to the test.—D.E.B.S. Official Site",
+#     runtime: 91,
+#     link: "https://lookmovie2.to/movies/view/debs-2004",
+# }
+# ])
 
-    # Review.create!([{
-    #     review: "I loved it! I especially liked the moral nuance of the characters. Very beautiful animation",
-    #     watched: true,
-    #     rating: 5,
-    # movie_id: 7,
-    # user_id: 3
-    # }, {
-    #     review: "It was so cheesy and funny! A definite re-watch",
-    #     watched: true,
-    #     rating: 4,
-    #     user_id: 3,
-    #     movie_id: 8
-
-    # }])
-
-    User.create!([{
-        username: "Jean",
-        password: "Jean",
-        admin: false }])

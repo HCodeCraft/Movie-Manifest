@@ -128,6 +128,7 @@ const Movie = () => {
       handleAdditionalFormClick={handleAdditionalFormClick}
     />
   ));
+  console.log("movie.link", movie.link)
 
   return loggedIn === true ? (
     <>

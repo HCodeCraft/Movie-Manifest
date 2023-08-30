@@ -12,12 +12,8 @@ const UserMovies = () => {
 
   useEffect(() => {
     const myMovies = user.movies;
-    console.log("myMovies", myMovies);
-    console.log("useEffect ran");
-    console.log("user from useEffect", user);
     if (myMovies) {
       setUserMovies(myMovies);
-      console.log("userMovies from in useEffect", userMovies);
     }
   }, [user]);
 

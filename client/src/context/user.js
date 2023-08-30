@@ -17,12 +17,16 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
-        if (data && !data.errors) {
+        if (!data.errors) {
           setLoggedIn(true);
           fetchMovies();
         }
+        else {
+        setErrors(data.errors)  
+        }
       });
   }, []);
+
 
   const fetchMovies = () => {
     fetch("/movies")
@@ -34,11 +38,9 @@ function UserProvider({ children }) {
 
   const login = (user) => {
     setUser(user);
-
     setLoggedIn(true);
     setUsername(user.username);
     fetchMovies();
-    console.log("movies were fetched", movies);
   };
 
   const logout = () => {
@@ -56,24 +58,23 @@ function UserProvider({ children }) {
   };
 
   const onAddReview = (newReview, createdMovie) => {
-    // Update user's reviews
+
     const updatedUserReviews = [...user.reviews, newReview];
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
 
     if (createdMovie) {
-      // Include the newReview in the createdMovie
+
       const updatedMovie = {
         ...createdMovie,
         reviews: [...createdMovie.reviews, newReview],
       };
 
-      // Update the movies array with the updatedMovie
+
       const updatedMovies = [...movies, updatedMovie];
       console.log("updatedMovies with createdMovie", updatedMovies);
       setMovies(updatedMovies);
 
-      // Add the movie to user's movie list if it's not there already
       const movieAlreadyExists = user.movies.some(
         (movie) => movie.id === createdMovie.id
       );

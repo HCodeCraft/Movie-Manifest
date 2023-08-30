@@ -12,7 +12,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    if @current_user
     render json: @current_user
+    else
+        render json: {error: "You must be logged in to access"}
+    end
   end
 
   private
