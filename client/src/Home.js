@@ -27,7 +27,9 @@ function Home() {
           setPassword("");
         } else {
           login(user);
-          setUsername(user.username);
+          setUsername("");
+          setPassword("");
+          setError("")
         }
       });
   };

@@ -1,5 +1,5 @@
 class MovieSerializer < ActiveModel::Serializer
-  attributes :title, :image_url, :genres, :description, :runtime, :link, :short_description, :id, :hours_and_min, :adv_review
+  attributes :title, :image_url, :genres, :description, :runtime, :link, :short_description, :id, :hours_and_min
   has_many :reviews
 
   def short_description
@@ -8,9 +8,8 @@ class MovieSerializer < ActiveModel::Serializer
 
   def hours_and_min
     hours = object.runtime / 60
-    hours_truncated = hours.to_i
     extramin = object.runtime % 60
 
-    "#{hours_truncated > 0 ? "#{hours_truncated} #{hours_truncated > 1 ? "hrs" : "hr"}" : ""}#{hours_truncated > 0 && extramin > 0 ? " " : ""}#{extramin > 0 ? "#{extramin} min" : ""}"
+    "#{hours > 0 ? "#{hours} #{hours > 1 ? "hrs" : "hr"}" : ""}#{hours > 0 && extramin > 0 ? " " : ""}#{extramin > 0 ? "#{extramin} min" : ""}"
   end
 end

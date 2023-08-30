@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authorize, only: :create
 
-  # login
   def create
     user = find_user
     movies = user.movies
@@ -14,7 +13,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  # logout
   def destroy
     session.clear
     head :no_content
