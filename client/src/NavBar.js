@@ -63,9 +63,9 @@ const NavBar = () => {
   } else {
     return (
       <div className="topdiv">
-      <div className="bannerbox">
-        <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
-      </div>
+        <div className="bannerbox">
+          <img id="b" src={Banner} alt="Movie Manifest Title Banner" />
+        </div>
       </div>
     );
   }

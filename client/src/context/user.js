@@ -61,7 +61,6 @@ function UserProvider({ children }) {
     const updatedUser = { ...user, reviews: updatedUserReviews };
     setUser(updatedUser);
 
-
     if (createdMovie) {
       // Include the newReview in the createdMovie
       const updatedMovie = {
@@ -149,11 +148,11 @@ function UserProvider({ children }) {
     const requestBody = {
       ...newMovie,
     };
-  
+
     if (newMovie.reviews) {
       requestBody.reviews = newMovie.reviews;
     }
-  
+
     return fetch("/movies", {
       method: "POST",
       headers: {
@@ -163,25 +162,23 @@ function UserProvider({ children }) {
     })
       .then((res) => {
         if (!res.ok) {
-            console.log("res", res)
+          console.log("res", res);
           throw new Error("Movie creation failed");
-          
         }
         return res.json();
       })
       .then((data) => {
         console.log("Response data from addMovie", data);
         onAddMovie(data);
-        setErrors([])
+        setErrors([]);
         return data;
       })
       .catch((error) => {
         console.error("Error adding movie:", error);
-        setErrors(error)
+        setErrors(error);
         throw error; // Re-throw the error to be handled further up the chain
       });
   };
-  
 
   const addReview = (newReview, createdMovie) => {
     fetch(`/reviews`, {
@@ -194,13 +191,7 @@ function UserProvider({ children }) {
       .then((res) => res.json())
       .then((data) => {
         onAddReview(data, createdMovie);
-        setErrors([])
-      
-        // if (data.error) {
-        //   setErrors(...errors, data.error);
-        //   console.log("errorss from addREview", errors)
-        // }
-
+        setErrors([]);
       });
   };
 
@@ -253,7 +244,6 @@ function UserProvider({ children }) {
     const updatedUser = { ...user, movies: newUserMovies };
     setUser(updatedUser);
   };
-
 
   return (
     <UserContext.Provider

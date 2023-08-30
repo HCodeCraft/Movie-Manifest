@@ -1,11 +1,11 @@
 class Movie < ApplicationRecord
-    has_many :reviews
-    accepts_nested_attributes_for :reviews
-    has_many :users, through: :reviews
+  has_many :reviews
+  accepts_nested_attributes_for :reviews
+  has_many :users, through: :reviews
 
-    validates :title, presence: true, uniqueness: true
-    validates :image_url, presence: true
-    validates :genres, presence: true
-    validates :description, length: { minimum: 10 }
-    validates :runtime, length: { in: 1..999 }
+  validates :title, presence: true, uniqueness: true
+  validates :image_url, presence: true
+  validates :genres, presence: true
+  validates :description, length: { minimum: 10 }
+  validates :runtime, length: { in: 1..999 }
 end

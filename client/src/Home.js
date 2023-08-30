@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "./context/user";
 
@@ -31,8 +31,6 @@ function Home() {
         }
       });
   };
-
-
 
   if (loggedIn) {
     return (
