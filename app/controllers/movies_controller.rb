@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
       review_attributes = params[:review_attributes].merge(user_id: @current_user.id)
       review = movie.reviews.create!(review_attributes)
     end
-
     render json: movie, status: :created
   end
 
