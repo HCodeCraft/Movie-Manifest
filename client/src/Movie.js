@@ -109,7 +109,6 @@ const Movie = () => {
     setReview(selectedReview);
   };
 
-
   const reviewList = movie.reviews.map((review) => (
     <BigReviewCard
       key={review.id}
@@ -123,7 +122,6 @@ const Movie = () => {
       handleFormClick={handleFormClick}
     />
   ));
-
 
   return loggedIn === true ? (
     <>

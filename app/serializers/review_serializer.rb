@@ -13,7 +13,6 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def create_date
     created_at = object.created_at
-
     formatted_time = created_at.strftime("%B %d, %Y, %I:%M %p")
   end
 end

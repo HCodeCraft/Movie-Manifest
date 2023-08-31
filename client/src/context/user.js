@@ -70,7 +70,6 @@ function UserProvider({ children }) {
         reviews: [...createdMovie.reviews, newReview],
       };
 
-
       const updatedMovies = [...movies, updatedMovie];
       setMovies(updatedMovies);
 
