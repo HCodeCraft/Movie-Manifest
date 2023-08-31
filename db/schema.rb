@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_31_154309) do
+ActiveRecord::Schema.define(version: 2023_08_31_155738) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2023_08_31_154309) do
     t.string "description"
     t.integer "runtime"
     t.string "link"
-    t.integer "review_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
