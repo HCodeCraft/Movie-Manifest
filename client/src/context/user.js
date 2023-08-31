@@ -145,41 +145,32 @@ function UserProvider({ children }) {
     }
   };
 
+
   const addMovie = (newMovie) => {
-    const requestBody = {
-      ...newMovie,
-    };
-
-    if (newMovie.reviews) {
-      requestBody.reviews = newMovie.reviews;
-    }
-
     return fetch("/movies", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(newMovie), // Use newMovie directly
     })
       .then((res) => {
         if (!res.ok) {
-          console.log("res", res);
           throw new Error("Movie creation failed");
         }
         return res.json();
       })
       .then((data) => {
-        console.log("Response data from addMovie", data);
         onAddMovie(data);
         setErrors([]);
         return data;
       })
       .catch((error) => {
-        console.error("Error adding movie:", error);
         setErrors(error);
-        throw error; // Re-throw the error to be handled further up the chain
+        throw error; 
       });
   };
+  
 
   const addReview = (newReview, createdMovie) => {
     fetch(`/reviews`, {
