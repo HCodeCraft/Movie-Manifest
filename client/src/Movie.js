@@ -105,14 +105,10 @@ const Movie = () => {
   }, [movies, params.id, user.reviews]);
 
   const handleFormClick = (selectedReview) => {
-    console.log(selectedReview);
     setReviewForm(true);
     setReview(selectedReview);
   };
 
-  const handleAdditionalFormClick = () => {
-    setAdditionalForm(true);
-  };
 
   const reviewList = movie.reviews.map((review) => (
     <BigReviewCard
@@ -125,10 +121,9 @@ const Movie = () => {
       id={review.id}
       create_date={review.create_date}
       handleFormClick={handleFormClick}
-      handleAdditionalFormClick={handleAdditionalFormClick}
     />
   ));
-  console.log("movie.link", movie.link)
+
 
   return loggedIn === true ? (
     <>
@@ -200,7 +195,6 @@ const Movie = () => {
                   <br />
                   <br />
                   <label>Rating: </label>
-                  {/* Your StarRating component should go here */}
                   <StarRating
                     rating={review.rating}
                     changeRating={changeRating}

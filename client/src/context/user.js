@@ -72,7 +72,6 @@ function UserProvider({ children }) {
 
 
       const updatedMovies = [...movies, updatedMovie];
-      console.log("updatedMovies with createdMovie", updatedMovies);
       setMovies(updatedMovies);
 
       const movieAlreadyExists = user.movies.some(
@@ -152,7 +151,7 @@ function UserProvider({ children }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newMovie), // Use newMovie directly
+      body: JSON.stringify(newMovie), 
     })
       .then((res) => {
         if (!res.ok) {
